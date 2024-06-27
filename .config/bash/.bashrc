@@ -1,6 +1,6 @@
 case $- in
-  *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # Path to your oh-my-bash installation.
@@ -22,9 +22,9 @@ OMB_PROMPT_SHOW_PYTHON_VENV=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
-  git
-  composer
-  ssh
+	git
+	composer
+	ssh
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -32,7 +32,7 @@ completions=(
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  general
+	general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -40,8 +40,8 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  bashmarks
+	git
+	bashmarks
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -69,35 +69,34 @@ source "$OSH"/oh-my-bash.sh
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
 # Open tmux by default
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	exec tmux
 fi
 
 # User aliases
 alias bashrc='source ~/.bashrc'
+alias vim='nvim'
 alias dev='cd ~/Dev'
 alias pi='ssh hajizar@pi.local'
 alias requirements='pip install -r requirements.txt'
 alias vb='vim ~/.bashrc'
 alias venv='source .venv/bin/activate'
 alias lg='lazygit'
+alias ld='lazydocker'
+alias kubectl='microk8s kubectl'
 
 # User function aliases
 dpurge() {
-    sudo docker stop $(sudo docker ps -q)
-    sudo docker rm $(sudo docker ps -aq)
-}
-
-kctl(){
-    kubectl "@"
+	sudo docker stop $(sudo docker ps -q)
+	sudo docker rm $(sudo docker ps -aq)
 }
 
 # Sourcing homebrew
