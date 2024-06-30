@@ -81,6 +81,10 @@ if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && 
 	exec tmux
 fi
 
+# Default editor
+export VISUAL=nvim
+export EDITOR=nvim
+
 # User aliases
 alias bashrc='source ~/.bashrc'
 alias vim='nvim'
