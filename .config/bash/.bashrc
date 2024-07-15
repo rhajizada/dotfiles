@@ -103,5 +103,8 @@ dpurge() {
 	sudo docker rm $(sudo docker ps -aq)
 }
 
-# Sourcing homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Sourcing local packages
+export PATH="$HOME/.local/bin:$PATH"
+
+# Homebrew packages
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
