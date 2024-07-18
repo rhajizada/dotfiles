@@ -10,6 +10,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # Create symlinks
+ln -sf "$DOTFILES_DIR/.config/git/.gitconfig" "$HOME/.gitconfig"
 ln -sf "$DOTFILES_DIR/.config/bash/.bashrc" "$HOME/.bashrc"
 ln -sf "$DOTFILES_DIR/.config/tmux/.tmux.conf" "$HOME/.tmux.conf"
 ln -sf "$DOTFILES_DIR/.config/alacritty" "$XDG_CONFIG_HOME/alacritty"
