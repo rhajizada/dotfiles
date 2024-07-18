@@ -1,4 +1,5 @@
 sudo pacman -S docker
+sudo pacman -S docker-compose
 sudo usermod -aG docker ${USER}
 sudo systemctl enable docker.service
 # Use local logging driver - it's more efficient and uses compression by default.
