@@ -9,18 +9,14 @@ NAME := "dotenv"
 ## alacritty: Setup symlink for alacritty
 alacritty:
 	@rm -rf $(XDG_CONFIG_HOME)/alacritty
-	if [ "$(UNAME)" = "Linux" ]; then \
-		ln -sf "$(CONFIG_DIR)/alacritty/linux/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
-	elif [ "$(UNAME)" = "Darwin" ]; then \
-		ln -sf "$(CONFIG_DIR)/alacritty/mac/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
-	fi
+	ln -sf "$(CONFIG_DIR)/alacritty/$(UNAME)/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
 	ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
 
 .PHONY: bashrc
 ## bashrc: Setup symlink for .bashrc
 bashrc:
 	@rm -f $(HOME)/.bashrc.conf
-	@ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
+	ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
 .PHONY: config
 ## config: Setup user configuration
@@ -28,14 +24,14 @@ config:
 	@if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) config-linux; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
-			$(MAKE) config-mac; \
+			$(MAKE) config-darwin; \
 	fi
 
 .PHONY: config-linux
 config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
 
-.PHONY: config-mac
-config-mac: gitconfig nvim tmux zsh
+.PHONY: config-darwin
+config-darwin: alacritty gitconfig nvim tmux zsh
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
@@ -43,7 +39,7 @@ fonts:
 	@if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) fonts-linux; \
 	elif [ "$(UNAME)" = "Darwin" ]; thihen \
-			$(MAKE) fonts-mac; \
+			$(MAKE) fonts-darwin; \
 	fi
 
 .PHONY: fonts-linux
@@ -63,8 +59,8 @@ fonts-linux:
 	fc-cache
 
 
-.PHONY: fonts-mac
-fonts-mac:
+.PHONY: fonts-darwin
+fonts-darwin:
 	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 	unzip CascadiaMono.zip -d CascadiaFont
 	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
@@ -82,19 +78,19 @@ fonts-mac:
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
 	@rm -f $(HOME)/.gitconfig
-	@ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
+	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
 
 .PHONY: nvim
 ## nvim: Setup symlink for nvim configuration
 nvim:
 	@rm -rf $(XDG_CONFIG_HOME)/nvim
-	@ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
+	ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
 	@rm -f $(HOME)/.tmux.conf
-	@ln -sf "$(CONFIG_DIR)/tmux/.tmux.conf" "$(HOME)/.tmux.conf"
+	ln -sf "$(CONFIG_DIR)/tmux/$(UNAME)/.tmux.conf" "$(HOME)/.tmux.conf"; \
 
 .PHONY: ulauncher
 ## ulauncher: Setup symlink for ulauncher configuration
