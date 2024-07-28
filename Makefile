@@ -43,8 +43,7 @@ fonts:
 
 .PHONY: fonts-linux
 fonts-linux:
-	@cd /tmp
-	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 	unzip CascadiaMono.zip -d CascadiaFont
 	cp CascadiaFont/*.ttf $(HOME)/.local/share/fonts
 	rm -rf CascadiaMono.zip CascadiaFont
@@ -61,8 +60,7 @@ fonts-linux:
 
 .PHONY: fonts-mac
 fonts-mac:
-	@cd /tmp
-	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 	unzip CascadiaMono.zip -d CascadiaFont
 	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
 	rm -rf CascadiaMono.zip CascadiaFont
