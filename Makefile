@@ -9,7 +9,12 @@ NAME := "dotenv"
 ## alacritty: Setup symlink for alacritty
 alacritty:
 	@rm -rf $(XDG_CONFIG_HOME)/alacritty
-	@ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
+	if [ "$(UNAME)" = "Linux" ]; then \
+		ln -sf "$(CONFIG_DIR)/alacritty/linux/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
+	elif [ "$(UNAME)" = "Darwin" ]; then \
+		ln -sf "$(CONFIG_DIR)/alacritty/mac/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
+	fi
+	ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
 
 .PHONY: bashrc
 ## bashrc: Setup symlink for .bashrc
@@ -37,7 +42,7 @@ config-mac: gitconfig nvim tmux zsh
 fonts:
 	@if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) fonts-linux; \
-	elif [ "$(UNAME)" = "Darwin" ]; then \
+	elif [ "$(UNAME)" = "Darwin" ]; thihen \
 			$(MAKE) fonts-mac; \
 	fi
 
