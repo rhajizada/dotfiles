@@ -17,6 +17,64 @@ bashrc:
 	@rm -f $(HOME)/.bashrc.conf
 	@ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
+.PHONY: config
+## config: Setup user configuration
+config:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+			$(MAKE) config-linux; \
+	elif [ "$(UNAME)" = "Darwin" ]; then \
+			$(MAKE) config-mac; \
+	fi
+
+.PHONY: config-linux
+config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
+
+.PHONY: config-mac
+config-mac: gitconfig nvim tmux zsh
+
+.PHONY: fonts
+## fonts: Setup nerd fonts
+fonts:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+			$(MAKE) fonts-linux; \
+	elif [ "$(UNAME)" = "Darwin" ]; then \
+			$(MAKE) fonts-mac; \
+	fi
+
+.PHONY: fonts-linux
+fonts-linux:
+	@cd /tmp
+	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	unzip CascadiaMono.zip -d CascadiaFont
+	cp CascadiaFont/*.ttf $(HOME)/.local/share/fonts
+	rm -rf CascadiaMono.zip CascadiaFont
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+	unzip JetBrainsMono.zip -d JetBrainsMono
+	cp JetBrainsMono/*.ttf $(HOME)/.local/share/fonts
+	rm -rf JetBrainsMono.zip JetBrainsMono
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip -d Meslo
+	cp Meslo/*ttf $(HOME)/.local/share/fonts
+	rm -rf Meslo.zip Meslo
+	fc-cache
+
+
+.PHONY: fonts-mac
+fonts-mac:
+	@cd /tmp
+	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	unzip CascadiaMono.zip -d CascadiaFont
+	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
+	rm -rf CascadiaMono.zip CascadiaFont
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+	unzip JetBrainsMono.zip -d JetBrainsMono
+	cp JetBrainsMono/*.ttf $(HOME)/Library/Fonts/
+	rm -rf JetBrainsMono.zip JetBrainsMono
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip -d Meslo
+	cp Meslo/*ttf $(HOME)/Library/Fonts/
+	rm -rf Meslo.zip Meslo
+
 .PHONY: gitconfig
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
@@ -41,14 +99,13 @@ ulauncher:
 	@rm -rf $(XDG_CONFIG_HOME)/ulauncher
 	@ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
 
-.PHONY: macos-config
-## macos-config: Setup user configuration for macOS
-macos-config: gitconfig nvim tmux
-
-.PHONY: test
-## test: Test target
-test:
-	@echo $(UNAME)
+.PHONY: zsh
+## zsh: Setup symlink for zsh configuration
+zsh:
+	@rm -rf $(HOME)/.zshrc
+	@rm -rf $(HOME)/.p10k.zsh
+	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
+	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
 all: help
