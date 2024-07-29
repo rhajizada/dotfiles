@@ -96,6 +96,7 @@ alias venv='source .venv/bin/activate'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias kubectl='microk8s kubectl'
+alias tms='transmission-cli'
 
 # User function aliases
 dpurge() {
