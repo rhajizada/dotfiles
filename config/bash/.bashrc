@@ -8,7 +8,7 @@ export OSH='/home/hajizar/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="powerbash10k"
+OSH_THEME="powerline-multiline"
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
@@ -42,6 +42,7 @@ aliases=(
 plugins=(
   git
   bashmarks
+  pyenv
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -97,6 +98,7 @@ alias lg='lazygit'
 alias ld='lazydocker'
 alias kubectl='microk8s kubectl'
 alias tms='transmission-cli'
+alias pbcopy='xclip -selection clipboard'
 
 # User function aliases
 dpurge() {

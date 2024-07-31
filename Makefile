@@ -1,8 +1,8 @@
 XDG_CONFIG_HOME ?= $(HOME)/.config
+DISTRO := $(shell . /etc/os-release && echo $$ID)
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
 UNAME := "$(shell uname)"
-
 NAME := "dotenv"
 
 .PHONY: alacritty
@@ -110,8 +110,7 @@ zsh:
 	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
-all: help
-# help: show help message
+## help: Show help message
 help: Makefile
 	@echo
 	@echo " Choose a command to run in "$(NAME)":"
