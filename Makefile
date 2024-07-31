@@ -58,7 +58,6 @@ fonts-linux:
 	rm -rf Meslo.zip Meslo
 	fc-cache
 
-
 .PHONY: fonts-darwin
 fonts-darwin:
 	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
@@ -108,6 +107,11 @@ zsh:
 	@rm -rf $(HOME)/.p10k.zsh
 	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
 	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
+
+.PHONY: format
+## format: Format Makefile
+format:
+	./tools/format.py -i Makefile
 
 .PHONY: help
 ## help: Show help message
