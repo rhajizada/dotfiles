@@ -1,9 +1,9 @@
-XDG_CONFIG_HOME ?= $(HOME)/.config
+CONFIG_DIR := $(DOTFILES_DIR)/config
 DISTRO := $(shell . /etc/os-release && echo $$ID)
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-CONFIG_DIR := $(DOTFILES_DIR)/config
-UNAME := "$(shell uname)"
 NAME := "dotenv"
+UNAME := "$(shell uname)"
+XDG_CONFIG_HOME ?= $(HOME)/.config
 
 .PHONY: alacritty
 ## alacritty: Setup symlink for alacritty
@@ -27,11 +27,11 @@ config:
 			$(MAKE) config-darwin; \
 	fi
 
-.PHONY: config-linux
-config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
-
 .PHONY: config-darwin
 config-darwin: alacritty gitconfig nvim tmux zsh
+
+.PHONY: config-linux
+config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
@@ -41,6 +41,21 @@ fonts:
 	elif [ "$(UNAME)" = "Darwin" ]; thihen \
 			$(MAKE) fonts-darwin; \
 	fi
+
+.PHONY: fonts-darwin
+fonts-darwin:
+	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	unzip CascadiaMono.zip -d CascadiaFont
+	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
+	rm -rf CascadiaMono.zip CascadiaFont
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+	unzip JetBrainsMono.zip -d JetBrainsMono
+	cp JetBrainsMono/*.ttf $(HOME)/Library/Fonts/
+	rm -rf JetBrainsMono.zip JetBrainsMono
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip -d Meslo
+	cp Meslo/*ttf $(HOME)/Library/Fonts/
+	rm -rf Meslo.zip Meslo
 
 .PHONY: fonts-linux
 fonts-linux:
@@ -58,26 +73,25 @@ fonts-linux:
 	rm -rf Meslo.zip Meslo
 	fc-cache
 
-.PHONY: fonts-darwin
-fonts-darwin:
-	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-	unzip CascadiaMono.zip -d CascadiaFont
-	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
-	rm -rf CascadiaMono.zip CascadiaFont
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-	unzip JetBrainsMono.zip -d JetBrainsMono
-	cp JetBrainsMono/*.ttf $(HOME)/Library/Fonts/
-	rm -rf JetBrainsMono.zip JetBrainsMono
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
-	unzip Meslo.zip -d Meslo
-	cp Meslo/*ttf $(HOME)/Library/Fonts/
-	rm -rf Meslo.zip Meslo
+.PHONY: format
+## format: Format Makefile
+format:
+	./tools/format.py -i Makefile
 
 .PHONY: gitconfig
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
 	@rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
+
+.PHONY: help
+## help: Show help message
+help: Makefile
+	@echo
+	@echo " Choose a command to run in "$(NAME)":"
+	@echo
+	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
+	@echo
 
 .PHONY: nvim
 ## nvim: Setup symlink for nvim configuration
@@ -87,7 +101,7 @@ nvim:
 	if [ "$(UNAME)" = "Linux" ]; then \
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
-	
+
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
@@ -107,17 +121,3 @@ zsh:
 	@rm -rf $(HOME)/.p10k.zsh
 	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
 	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
-
-.PHONY: format
-## format: Format Makefile
-format:
-	./tools/format.py -i Makefile
-
-.PHONY: help
-## help: Show help message
-help: Makefile
-	@echo
-	@echo " Choose a command to run in "$(NAME)":"
-	@echo
-	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	@echo
