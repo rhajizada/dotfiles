@@ -85,7 +85,10 @@ gitconfig:
 nvim:
 	@rm -rf $(XDG_CONFIG_HOME)/nvim
 	ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
-
+	if [ "$(UNAME)" = "Linux" ]; then \
+		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
+	fi
+	
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
