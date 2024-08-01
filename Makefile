@@ -83,6 +83,38 @@ gitconfig:
 	@rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
 
+.PHONY: install-requirements
+## install-requirements: Install required packages
+install-requirements:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+    if [ "$(DISTRO)" = "arch" ]; then \
+        $(MAKE) install-requirements-arch; \
+    else \
+        echo "Not supported for $(DISTRO)"; \
+        exit 1; \
+    fi \
+elif [ "$(UNAME)" = "Darwin" ]; then \
+    echo "Not supported for $(UNAME)"; \
+    exit 1; \
+fi
+
+.PHONY: install-requirements-arch
+install-requirements-arch: install-yay
+		@grep -A 1000 '^# pacman' $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt | grep -v '^#' | xargs sudo pacman -Syu --needed --noconfirm
+		@grep -A 1000 '^# yay' $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt | grep -v '^#' | xargs yay -Syu --needed --noconfirm
+
+.PHONY: install-yay
+install-yay:
+	@if ! command -v yay >/dev/null 2>&1; then \
+	    echo "Installing yay..."; \
+	    sudo pacman -Syu --needed --noconfirm git base-devel; \
+	    cd /tmp && git clone https://aur.archlinux.org/yay.git; \
+	    cd yay && makepkg -si --noconfirm; \
+	    cd .. && rm -rf yay; \
+	else \
+	    echo "yay is already installed"; \
+	fi
+
 .PHONY: help
 ## help: Show help message
 help: Makefile
@@ -101,24 +133,6 @@ nvim:
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
 
-.PHONY: requirements
-## requirements: Install required packages
-requirements:
-	@if [ "$(UNAME)" = "Linux" ]; then \
-    if [ "$(DISTRO)" = "arch" ]; then \
-        $(MAKE) requirements-arch; \
-    else \
-        echo "Not supported for $(DISTRO)"; \
-        exit 1; \
-    fi \
-elif [ "$(UNAME)" = "Darwin" ]; then \
-    echo "Not supported for $(UNAME)"; \
-    exit 1; \
-fi
-
-.PHONY: requirements-arch
-requirements-arch:
-	@sudo pacman -S --needed --noconfirm - < $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt;
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
@@ -131,6 +145,34 @@ tmux:
 ulauncher:
 	@rm -rf $(XDG_CONFIG_HOME)/ulauncher
 	@ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
+
+.PHONY: update-requirements
+## update-requirements: Update local package requirements
+update-requirements:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+    if [ "$(DISTRO)" = "arch" ]; then \
+        $(MAKE) update-requirements-arch; \
+    else \
+        echo "Not supported for $(DISTRO)"; \
+        exit 1; \
+    fi \
+elif [ "$(UNAME)" = "Darwin" ]; then \
+    echo "Not supported for $(UNAME)"; \
+    exit 1; \
+fi
+
+.PHONY: update-requirements-arch
+update-requirements-arch:
+	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > pacman-packages.txt
+	@pacman -Qm | grep -vx 'yay' > yay-packages.txt
+	@{ \
+		echo "# pacman"; \
+		cat pacman-packages.txt; \
+		echo ""; \
+		echo "# yay"; \
+		cat yay-packages.txt; \
+	} > $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt
+	@rm pacman-packages.txt yay-packages.txt
 
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration

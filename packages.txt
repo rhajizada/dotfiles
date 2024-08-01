@@ -1,7 +1,5 @@
 # pacman
 alacritty
-appimaged-bin
-appimagelauncher
 arc-gtk-theme
 arp-scan
 baobab
@@ -50,7 +48,6 @@ gnome-tweaks
 gnome-usage
 gnome-user-docs
 gnome-user-share
-google-chrome
 grilo-plugins
 gst-plugin-pipewire
 gvfs
@@ -69,7 +66,6 @@ inetutils
 intel-ucode
 k9s
 kubectl
-lazydocker
 lazygit
 less
 libpulse
@@ -85,7 +81,6 @@ nautilus
 neovim
 net-tools
 networkmanager
-nvm
 openssh
 orca
 pipewire
@@ -96,10 +91,8 @@ python-pipx
 ripgrep
 rygel
 simple-scan
-snapd
 snapshot
 spotify-launcher
-sqlectron
 sushi
 tecla
 tmux
@@ -107,17 +100,13 @@ totem
 tracker3-miners
 transmission-cli
 tree
-ulauncher
 unzip
-visual-studio-code-bin
 wget
 wireplumber
 x11vnc
 xclip
 xdg-user-dirs-gtk
 xorg-xlsclients
-yay
-yay-debug
 yelp
 zram-generator
 
