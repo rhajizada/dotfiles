@@ -118,7 +118,7 @@ fi
 
 .PHONY: requirements-arch
 requirements-arch:
-	@sudo pacman -Syu --needed --noconfirm - < $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt;
+	@sudo pacman -S --needed --noconfirm - < $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt;
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
