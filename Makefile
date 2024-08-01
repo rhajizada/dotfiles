@@ -1,7 +1,7 @@
+NAME := "dotfile"
+DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
 DISTRO := $(shell . /etc/os-release && echo $$ID)
-DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-NAME := "dotenv"
 UNAME := "$(shell uname)"
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
@@ -28,7 +28,7 @@ config:
 	fi
 
 .PHONY: config-darwin
-config-darwin: alacritty gitconfig nvim tmux zsh
+config-darwin: alacritty gitconfig nvim tmux zshrc
 
 .PHONY: config-linux
 config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
@@ -38,7 +38,7 @@ config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
 fonts:
 	@if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) fonts-linux; \
-	elif [ "$(UNAME)" = "Darwin" ]; thihen \
+	elif [ "$(UNAME)" = "Darwin" ]; then \
 			$(MAKE) fonts-darwin; \
 	fi
 
@@ -114,9 +114,9 @@ ulauncher:
 	@rm -rf $(XDG_CONFIG_HOME)/ulauncher
 	@ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
 
-.PHONY: zsh
-## zsh: Setup symlink for zsh configuration
-zsh:
+.PHONY: zshrc
+## zshrc: Setup symlink for zsh configuration
+zshrc:
 	@rm -rf $(HOME)/.zshrc
 	@rm -rf $(HOME)/.p10k.zsh
 	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
