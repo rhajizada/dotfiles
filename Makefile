@@ -1,9 +1,13 @@
 NAME := "dotfile"
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
-DISTRO := $(shell . /etc/os-release && echo $$ID)
+DISTRO := $(shell cat /etc/os-release | grep ^ID= | cut -d= -f2)
 UNAME := "$(shell uname)"
 XDG_CONFIG_HOME ?= $(HOME)/.config
+
+ifeq ($(OS),Windows_NT)
+$(error This Makefile cannot be run on Windows)
+endif
 
 .PHONY: alacritty
 ## alacritty: Setup symlink for alacritty
@@ -73,11 +77,6 @@ fonts-linux:
 	rm -rf Meslo.zip Meslo
 	fc-cache
 
-.PHONY: format
-## format: Format Makefile
-format:
-	./tools/format.py -i Makefile
-
 .PHONY: gitconfig
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
@@ -101,6 +100,25 @@ nvim:
 	if [ "$(UNAME)" = "Linux" ]; then \
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
+
+.PHONY: requirements
+## requirements: Install required packages
+requirements:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+    if [ "$(DISTRO)" = "arch" ]; then \
+        $(MAKE) requirements-arch; \
+    else \
+        echo "Not supported for $(DISTRO)"; \
+        exit 1; \
+    fi \
+elif [ "$(UNAME)" = "Darwin" ]; then \
+    echo "Not supported for $(UNAME)"; \
+    exit 1; \
+fi
+
+.PHONY: requirements-arch
+requirements-arch:
+	@sudo pacman -Syu --needed --noconfirm - < $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt;
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
