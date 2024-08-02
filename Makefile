@@ -89,7 +89,7 @@ install-brew:
 
 .PHONY: install-requirements
 ## install-requirements: Install required packages
-install-requirements: config source
+install-requirements: config
 	@if [ "$(UNAME)" = "Linux" ]; then \
     if [ "$(DISTRO)" = "arch" ]; then \
         $(MAKE) install-requirements-arch; \
@@ -104,8 +104,9 @@ fi
 
 .PHONY: install-requirements-arch
 install-requirements-arch: install-yay
-	@cat $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt | xargs sudo pacman -S --needed --needed --noconfirm
-	@cat $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt) | xargs yay -S --needed --noconfirm
+	@source ~/.bashrc; \
+	cat $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt | xargs sudo pacman -S --needed --needed --noconfirm; \
+	cat $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt) | xargs yay -S --needed --noconfirm
 
 .PHONY: install-yay
 install-yay:
@@ -118,6 +119,39 @@ install-yay:
 	else \
 	    echo "yay is already installed"; \
 	fi
+
+.PHONY: install-gnome-extensions-cli
+install-gnome-extensions-cli:
+	@pipx install gnome-extensions-cli --system-site-packages
+
+
+.PHONY: list-gnome-extensions
+## list-gnome-extensions: Update local gnome extensions list  
+list-gnome-extensions:
+	@gnome-extensions list > $(DOTFILES_DIR)/requirements/gnome/extensions.txt
+
+.PHONY: list-requirements
+## list-requirements: Update local package requirements list
+list-requirements:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+    if [ "$(DISTRO)" = "arch" ]; then \
+        $(MAKE) list-requirements-arch; \
+    else \
+        echo "Not supported for $(DISTRO)"; \
+        exit 1; \
+    fi \
+elif [ "$(UNAME)" = "Darwin" ]; then \
+    $(MAKE) list-requirements-darwin; \
+fi
+
+.PHONY: list-requirements-arch
+list-requirements-arch:
+	@pacman -Qqn > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
+	@pacman -Qqm > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
+
+.PHONY: list-requirements-darwin
+list-requirements-darwin:
+	@brew leaves > $(DOTFILES_DIR)/requirements/darwin/packages.txt
 
 .PHONY: help
 ## help: Show help message
@@ -138,15 +172,6 @@ nvim:
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
 
-.PHONY: source
-## source: Source shell configuration
-source:
-	@if [ "$(UNAME)" = "Linux" ]; then \
-			source ~/.bashrc; \
-	elif [ "$(UNAME)" = "Darwin" ]; then \
-			source ~/.zshrc; \
-	fi
-
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
@@ -158,29 +183,6 @@ tmux:
 ulauncher:
 	@rm -rf $(XDG_CONFIG_HOME)/ulauncher
 	@ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
-
-.PHONY: update-requirements
-## update-requirements: Update local package requirements
-update-requirements:
-	@if [ "$(UNAME)" = "Linux" ]; then \
-    if [ "$(DISTRO)" = "arch" ]; then \
-        $(MAKE) update-requirements-arch; \
-    else \
-        echo "Not supported for $(DISTRO)"; \
-        exit 1; \
-    fi \
-elif [ "$(UNAME)" = "Darwin" ]; then \
-    $(MAKE) update-requirements-darwin; \
-fi
-
-.PHONY: update-requirements-arch
-update-requirements-arch:
-	@pacman -Qqn > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
-	@pacman -Qqm > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
-
-.PHONY: update-requirements-darwin
-update-requirements-darwin:
-	@brew leaves > $(DOTFILES_DIR)/requirements/darwin/packages.txt
 
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration
