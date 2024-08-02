@@ -89,7 +89,7 @@ install-brew:
 
 .PHONY: install-requirements
 ## install-requirements: Install required packages
-install-requirements: config
+install-requirements: config source
 	@if [ "$(UNAME)" = "Linux" ]; then \
     if [ "$(DISTRO)" = "arch" ]; then \
         $(MAKE) install-requirements-arch; \
@@ -104,8 +104,9 @@ fi
 
 .PHONY: install-requirements-arch
 install-requirements-arch: install-yay
-	@echo $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt | xargs sudo pacman -Syu --needed --noconfirm
-	@echo $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt | xargs yay -Syu --needed --noconfirm
+	@sudo pacman -Syu --noconfirm
+	@xargs sudo pacman -Syu --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt)
+	@yay -S --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt)
 
 .PHONY: install-yay
 install-yay:
@@ -138,6 +139,14 @@ nvim:
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
 
+.PHONY: source
+## source: Source shell configuration
+source:
+	@if [ "$(UNAME)" = "Linux" ]; then \
+			source ~/.bashrc; \
+	elif [ "$(UNAME)" = "Darwin" ]; then \
+			source ~/.zshrc; \
+	fi
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
