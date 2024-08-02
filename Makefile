@@ -104,7 +104,6 @@ fi
 
 .PHONY: install-requirements-arch
 install-requirements-arch: install-yay
-	@sudo pacman -Syu --noconfirm
 	@xargs sudo pacman -Syu --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt)
 	@yay -S --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt)
 
