@@ -134,6 +134,7 @@ nvim:
 	@rm -rf $(XDG_CONFIG_HOME)/nvim
 	ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
 	if [ "$(UNAME)" = "Linux" ]; then \
+		sudo mkdir "/root/.config"; \
 		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
 	fi
 
