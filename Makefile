@@ -89,7 +89,7 @@ install-brew:
 
 .PHONY: install-requirements
 ## install-requirements: Install required packages
-install-requirements:
+install-requirements: config
 	@if [ "$(UNAME)" = "Linux" ]; then \
     if [ "$(DISTRO)" = "arch" ]; then \
         $(MAKE) install-requirements-arch; \
@@ -166,8 +166,8 @@ fi
 
 .PHONY: update-requirements-arch
 update-requirements-arch:
-	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
-	@pacman -Qm | grep -vx 'yay' > > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
+	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
+	@pacman -Qm | grep -vx 'yay' > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
 
 .PHONY: update-requirements-darwin
 update-requirements-darwin:
