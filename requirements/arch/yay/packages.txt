@@ -1,15 +1,15 @@
-appimaged-bin r199-4
-appimagelauncher 2.2.0-8
-appimagelauncher-debug 2.2.0-8
-google-chrome 126.0.6478.126-1
-lazydocker 0.23.3-1
-lazydocker-debug 0.23.3-1
-nvm 0.39.7-1
-snapd 2.63-1
-sqlectron 1.38.0-1
-udevil-debug 0.4.4-4
-ulauncher 5.15.7-1
-visual-studio-code-bin 1.91.0-1
-visual-studio-code-bin-debug 1.91.0-1
-yay 12.3.5-1
-yay-debug 12.3.5-1
+appimaged-bin
+appimagelauncher
+appimagelauncher-debug
+google-chrome
+lazydocker
+lazydocker-debug
+nvm
+snapd
+sqlectron
+udevil-debug
+ulauncher
+visual-studio-code-bin
+visual-studio-code-bin-debug
+yay
+yay-debug

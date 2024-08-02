@@ -104,8 +104,8 @@ fi
 
 .PHONY: install-requirements-arch
 install-requirements-arch: install-yay
-	@xargs sudo pacman -Syu --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt)
-	@yay -S --needed --noconfirm $(< $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt)
+	@cat $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt | xargs pacman -S --needed --needed --noconfirm
+	@cat $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt) | xargs yay -S --needed --noconfirm
 
 .PHONY: install-yay
 install-yay:
@@ -175,8 +175,8 @@ fi
 
 .PHONY: update-requirements-arch
 update-requirements-arch:
-	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
-	@pacman -Qm | grep -vx 'yay' > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
+	@pacman -Qqn > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
+	@pacman -Qqm > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
 
 .PHONY: update-requirements-darwin
 update-requirements-darwin:
