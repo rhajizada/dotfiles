@@ -83,6 +83,10 @@ gitconfig:
 	@rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
 
+.PHONY: install-brew
+install-brew:
+	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 .PHONY: install-requirements
 ## install-requirements: Install required packages
 install-requirements:
@@ -100,8 +104,8 @@ fi
 
 .PHONY: install-requirements-arch
 install-requirements-arch: install-yay
-		@grep -A 1000 '^# pacman' $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt | grep -v '^#' | xargs sudo pacman -Syu --needed --noconfirm
-		@grep -A 1000 '^# yay' $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt | grep -v '^#' | xargs yay -Syu --needed --noconfirm
+	@echo $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt | xargs sudo pacman -Syu --needed --noconfirm
+	@echo $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt | xargs yay -Syu --needed --noconfirm
 
 .PHONY: install-yay
 install-yay:
@@ -157,22 +161,17 @@ update-requirements:
         exit 1; \
     fi \
 elif [ "$(UNAME)" = "Darwin" ]; then \
-    echo "Not supported for $(UNAME)"; \
-    exit 1; \
+    $(MAKE) update-requirements-darwin; \
 fi
 
 .PHONY: update-requirements-arch
 update-requirements-arch:
-	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > pacman-packages.txt
-	@pacman -Qm | grep -vx 'yay' > yay-packages.txt
-	@{ \
-		echo "# pacman"; \
-		cat pacman-packages.txt; \
-		echo ""; \
-		echo "# yay"; \
-		cat yay-packages.txt; \
-	} > $(DOTFILES_DIR)/requirements/$(DISTRO)/packages.txt
-	@rm pacman-packages.txt yay-packages.txt
+	@pacman -Qqe | grep -vx "$(pacman -Qqm)" > > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
+	@pacman -Qm | grep -vx 'yay' > > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
+
+.PHONY: update-requirements-darwin
+update-requirements-darwin:
+	@brew leaves > $(DOTFILES_DIR)/requirements/darwin/packages.txt
 
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration
