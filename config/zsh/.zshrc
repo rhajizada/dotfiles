@@ -62,5 +62,5 @@ alias tselect='tmux attach-session -t'
 alias requirements='pip install -r requirements.txt'
 alias lg='lazygit'
 alias ld='lazydocker'
-
+alias fm='frogmouth'
 
