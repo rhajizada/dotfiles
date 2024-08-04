@@ -83,85 +83,6 @@ gitconfig:
 	@rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
 
-.PHONY: install-brew
-install-brew:
-	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-.PHONY: install-requirements
-## install-requirements: Install required packages
-install-requirements: config
-	@if [ "$(UNAME)" = "Linux" ]; then \
-    if [ "$(DISTRO)" = "arch" ]; then \
-        $(MAKE) install-requirements-arch; \
-    else \
-        echo "Not supported for $(DISTRO)"; \
-        exit 1; \
-    fi \
-elif [ "$(UNAME)" = "Darwin" ]; then \
-    echo "Not supported for $(UNAME)"; \
-    exit 1; \
-fi
-
-.PHONY: install-requirements-arch
-install-requirements-arch: install-yay
-	@source ~/.bashrc; \
-	cat $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt | xargs sudo pacman -S --needed --needed --noconfirm; \
-	cat $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt | xargs yay -S --needed --noconfirm
-
-.PHONY: install-yay
-install-yay:
-	@if ! command -v yay >/dev/null 2>&1; then \
-	    echo "Installing yay..."; \
-	    sudo pacman -Syu --needed --noconfirm git base-devel; \
-	    cd /tmp && git clone https://aur.archlinux.org/yay.git; \
-	    cd yay && makepkg -si --noconfirm; \
-	    cd .. && rm -rf yay; \
-	else \
-	    echo "yay is already installed"; \
-	fi
-
-.PHONY: install-gnome-extensions-cli
-install-gnome-extensions-cli:
-	@pipx install gnome-extensions-cli --system-site-packages
-
-
-.PHONY: list-gnome-extensions
-## list-gnome-extensions: Update local gnome extensions list  
-list-gnome-extensions:
-	@gnome-extensions list > $(DOTFILES_DIR)/requirements/gnome/extensions.txt
-
-.PHONY: list-requirements
-## list-requirements: Update local package requirements list
-list-requirements:
-	@if [ "$(UNAME)" = "Linux" ]; then \
-    if [ "$(DISTRO)" = "arch" ]; then \
-        $(MAKE) list-requirements-arch; \
-    else \
-        echo "Not supported for $(DISTRO)"; \
-        exit 1; \
-    fi \
-elif [ "$(UNAME)" = "Darwin" ]; then \
-    $(MAKE) list-requirements-darwin; \
-fi
-
-.PHONY: list-requirements-arch
-list-requirements-arch:
-	@pacman -Qqn > $(DOTFILES_DIR)/requirements/$(DISTRO)/pacman/packages.txt
-	@pacman -Qqm > $(DOTFILES_DIR)/requirements/$(DISTRO)/yay/packages.txt
-
-.PHONY: list-requirements-darwin
-list-requirements-darwin:
-	@brew leaves > $(DOTFILES_DIR)/requirements/darwin/packages.txt
-
-.PHONY: help
-## help: Show help message
-help: Makefile
-	@echo
-	@echo " Choose a command to run in "$(NAME)":"
-	@echo
-	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	@echo
-
 .PHONY: nvim
 ## nvim: Setup symlink for nvim configuration
 nvim:
@@ -191,3 +112,13 @@ zshrc:
 	@rm -rf $(HOME)/.p10k.zsh
 	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
 	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
+
+.PHONY: help
+## help: Show help message
+help: Makefile
+	@echo
+	@echo " Choose a command to run in "$(NAME)":"
+	@echo
+	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
+	@echo
+
