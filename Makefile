@@ -19,7 +19,11 @@ alacritty:
 .PHONY: bashrc
 ## bashrc: Setup symlink for .bashrc
 bashrc:
-	@rm -f $(HOME)/.bashrc.conf
+	if [[ ! -d "$(HOME)/.oh-my-bash" ]]; then \
+		echo "Installing 'Oh My Bash'"; \
+		git clone https://github.com/ohmybash/oh-my-bash.git $(HOME)/.oh-my-bash; \
+	fi
+	rm -f $(HOME)/.bashrc.conf
 	ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
 .PHONY: config
