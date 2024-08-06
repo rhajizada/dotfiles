@@ -110,7 +110,8 @@ dpurge() {
 export PATH="$HOME/.local/bin:$PATH"
 
 # Homebrew packages
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 
 # Snap packages
-export PATH="/snap/bin:$PATH"
+export PATH="$PATH:/snap/bin"
+export PATH="$PATH:/var/lib/snapd/snap/bin"
