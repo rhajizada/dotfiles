@@ -12,14 +12,14 @@ endif
 .PHONY: alacritty
 ## alacritty: Setup symlink for alacritty
 alacritty:
-	@rm -rf $(XDG_CONFIG_HOME)/alacritty
+	rm -rf $(XDG_CONFIG_HOME)/alacritty
 	ln -sf "$(CONFIG_DIR)/alacritty/$(UNAME)/alacritty.toml" "$(CONFIG_DIR)/alacritty/alacritty.toml"; \
 	ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
 
 .PHONY: bashrc
 ## bashrc: Setup symlink for .bashrc
 bashrc:
-	if [[ ! -d "$(HOME)/.oh-my-bash" ]]; then \
+	if [ ! -d "$(HOME)/.oh-my-bash" ]; then \
 		echo "Installing 'Oh My Bash'"; \
 		git clone https://github.com/ohmybash/oh-my-bash.git $(HOME)/.oh-my-bash; \
 	fi
@@ -29,7 +29,7 @@ bashrc:
 .PHONY: config
 ## config: Setup user configuration
 config:
-	@if [ "$(UNAME)" = "Linux" ]; then \
+	if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) config-linux; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
 			$(MAKE) config-darwin; \
@@ -44,7 +44,7 @@ config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
 .PHONY: fonts
 ## fonts: Setup nerd fonts
 fonts:
-	@if [ "$(UNAME)" = "Linux" ]; then \
+	if [ "$(UNAME)" = "Linux" ]; then \
 			$(MAKE) fonts-linux; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
 			$(MAKE) fonts-darwin; \
@@ -52,7 +52,7 @@ fonts:
 
 .PHONY: fonts-darwin
 fonts-darwin:
-	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 	unzip CascadiaMono.zip -d CascadiaFont
 	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
 	rm -rf CascadiaMono.zip CascadiaFont
@@ -67,7 +67,7 @@ fonts-darwin:
 
 .PHONY: fonts-linux
 fonts-linux:
-	@wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
+	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
 	unzip CascadiaMono.zip -d CascadiaFont
 	cp CascadiaFont/*.ttf $(HOME)/.local/share/fonts
 	rm -rf CascadiaMono.zip CascadiaFont
@@ -84,13 +84,13 @@ fonts-linux:
 .PHONY: gitconfig
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
-	@rm -f $(HOME)/.gitconfig
+	rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
 
 .PHONY: nvim
 ## nvim: Setup symlink for nvim configuration
 nvim:
-	@rm -rf $(XDG_CONFIG_HOME)/nvim
+	rm -rf $(XDG_CONFIG_HOME)/nvim
 	ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
 	if [ "$(UNAME)" = "Linux" ]; then \
 		sudo mkdir "/root/.config"; \
@@ -100,29 +100,51 @@ nvim:
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
-	@rm -f $(HOME)/.tmux.conf
+	rm -f $(HOME)/.tmux.conf
 	ln -sf "$(CONFIG_DIR)/tmux/$(UNAME)/.tmux.conf" "$(HOME)/.tmux.conf"; \
 
 .PHONY: ulauncher
 ## ulauncher: Setup symlink for ulauncher configuration
 ulauncher:
-	@rm -rf $(XDG_CONFIG_HOME)/ulauncher
-	@ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
+	rm -rf $(XDG_CONFIG_HOME)/ulauncher
+	ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
+	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Qogir-ulauncher-theme" ]; then \
+		echo "Installing 'Qogir-ulauncher-theme' ulauncher theme"; \
+		git clone git@github.com:bahadirdonmez/Qogir-ulauncher-theme.git $(CONFIG_DIR)/ulauncher/user-themes/Qogir-ulauncher-theme; \
+	fi
+	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/ulauncher-eigen" ]; then \
+		echo "Installing 'ulauncher-eigen' ulauncher theme"; \
+		git clone git@github.com:sotsugov/ulauncher-eigen.git $(CONFIG_DIR)/ulauncher/user-themes/ulauncher-eigen; \
+	fi
+	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Ulauncher-Essential-Dark-Theme" ]; then \
+		echo "Installing 'Ulauncher-Essential-Dark-Theme' ulauncher theme"; \
+		git clone git@github.com:GiorgioReale/Ulauncher-Essential-Dark-Theme.git $(CONFIG_DIR)/ulauncher/user-themes/Ulauncher-Essential-Dark-Theme; \
+	fi
+	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Matcha-Dark-Azul-ulauncher" ]; then \
+		echo "Installing 'Matcha-Dark-Azul-ulauncher' ulauncher theme"; \
+		git clone git@github.com:DaveHigs/Matcha-Dark-Azul-ulauncher.git $(CONFIG_DIR)/ulauncher/user-themes/Matcha-Dark-Azul-ulauncher; \
+	fi
+	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/tron" ]; then \
+		echo "Installing 'tron' ulauncher theme"; \
+		git clone git@github.com:OMEN44/tron.git /tmp/tron; \
+		mv /tmp/tron/tron $(CONFIG_DIR)/ulauncher/user-themes/tron; \
+		rm -rf /tmp/tron; \
+	fi
 
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration
 zshrc:
-	@rm -rf $(HOME)/.zshrc
-	@rm -rf $(HOME)/.p10k.zsh
-	@ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
-	@ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
+	rm -rf $(HOME)/.zshrc
+	rm -rf $(HOME)/.p10k.zsh
+	ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
+	ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
 ## help: Show help message
 help: Makefile
-	@echo
-	@echo " Choose a command to run in "$(NAME)":"
-	@echo
-	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	@echo
+	echo
+	echo " Choose a command to run in "$(NAME)":"
+	echo
+	sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
+	echo
 
