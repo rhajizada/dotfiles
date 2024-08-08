@@ -99,6 +99,7 @@ alias ld='lazydocker'
 alias kubectl='microk8s kubectl'
 alias tms='transmission-cli'
 alias pbcopy='xclip -selection clipboard'
+alias fm='frogmouth'
 
 # User function aliases
 dpurge() {
