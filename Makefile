@@ -143,7 +143,7 @@ zshrc:
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(HOME)/.p10k.zsh
 	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.zshrc" "$(HOME)/.zshrc"
-	ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
+	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
 ## help: Show help message
