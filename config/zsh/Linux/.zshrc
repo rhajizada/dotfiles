@@ -28,6 +28,11 @@ source $ZSH/oh-my-zsh.sh
 # Sourcing 'p10k'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Open tmux by default
+if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
 # User configuration
 export COLORTERM="truecolor"
 export EDITOR=nvim
