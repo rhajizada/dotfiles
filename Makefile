@@ -134,9 +134,12 @@ ulauncher:
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration
 zshrc:
+	if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
+		git clone https://github.com/ohmyzsh/ohmyzsh.git $(HOME)/.oh-my-zsh; \
+	fi
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(HOME)/.p10k.zsh
-	ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
+	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.zshrc" "$(HOME)/.zshrc"
 	ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
