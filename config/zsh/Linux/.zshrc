@@ -19,7 +19,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Automatically updating 'omz'
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
-
 # Plugins
 plugins=(git)
 
@@ -28,11 +27,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Sourcing 'p10k'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Start tmux automatically
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux
-fi
 
 # User configuration
 export COLORTERM="truecolor"
