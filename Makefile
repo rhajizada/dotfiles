@@ -137,6 +137,9 @@ zshrc:
 	if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
 		git clone https://github.com/ohmyzsh/ohmyzsh.git $(HOME)/.oh-my-zsh; \
 	fi
+	if [ ! -d $(HOME)/.oh-my-zsh/themes/powerlevel10k ]; then
+		git clone https://github.com/romkatv/powerlevel10k.git $(HOME)/.oh-my-zsh/themes/powerlevel10k; \
+	fi
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(HOME)/.p10k.zsh
 	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.zshrc" "$(HOME)/.zshrc"
