@@ -36,32 +36,41 @@ fi
 
 # User configuration
 export COLORTERM="truecolor"
+export EDITOR=nvim
 export LANG=en_US.UTF-8
-export LESSOPEN="|pygmentize -g %s"
 export TERM="xterm-256color"
+export VISUAL=nvim
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+export PATH="$PATH:/snap/bin"
+export PATH="$PATH:/var/lib/snapd/snap/bin"
 
 # User aliases
 alias dev='cd ~/Dev'
 alias fm='frogmouth'
+alias kubectl='microk8s kubectl'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias mkvenv='virtualenv .venv'
 alias ohmyzsh="mate ~/.oh-my-zshi"
+alias pbcopy='xclip -selection clipboard'
 alias pi='ssh hajizar@pi.local'
 alias requirements='pip install -r requirements.txt'
 alias rmvenv='rm -rf .venv'
-alias starman='ssh hajizar@starman.local'
 alias tkill='tmux kill-session -t'
 alias tls='tmux ls'
 alias tselect='tmux attach-session -t'
+alias tms='transmission-cli'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
 alias zshconfig="mate ~/.zshrc"
 alias zshrc='source ~/.zshrc'
+
+# User function aliases
+dpurge() {
+  sudo docker stop $(sudo docker ps -q)
+  sudo docker rm $(sudo docker ps -aq)
+}
 
