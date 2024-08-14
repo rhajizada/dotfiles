@@ -6,7 +6,7 @@ UNAME := "$(shell uname)"
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
 ifeq ($(OS),Windows_NT)
-$(error This Makefile cannot be run on Windows)
+$(error Windows is not supported)
 endif
 
 .PHONY: alacritty
