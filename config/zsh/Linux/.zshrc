@@ -29,8 +29,8 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Open tmux by default
-if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+if [ -t 1 ] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    tmux
 fi
 
 # User configuration
