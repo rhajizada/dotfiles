@@ -52,7 +52,6 @@ alias kubectl='microk8s kubectl'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias mkvenv='virtualenv .venv'
-alias ohmyzsh="mate ~/.oh-my-zshi"
 alias pbcopy='xclip -selection clipboard'
 alias pi='ssh hajizar@pi.local'
 alias requirements='pip install -r requirements.txt'
@@ -64,7 +63,6 @@ alias tms='transmission-cli'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
-alias zshconfig="mate ~/.zshrc"
 alias zshrc='source ~/.zshrc'
 
 # User function aliases
