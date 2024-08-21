@@ -39,7 +39,7 @@ config:
 config-darwin: alacritty gitconfig nvim tmux zshrc
 
 .PHONY: config-linux
-config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
+config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
