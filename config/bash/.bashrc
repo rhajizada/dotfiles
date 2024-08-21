@@ -78,9 +78,9 @@ if ! shopt -oq posix; then
 fi
 
 # Open tmux by default
-if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
-fi
+# if command -v tmux &>/dev/null && [ -n "$ps1" ] && [[ ! "$term" =~ screen ]] && [[ ! "$term" =~ tmux ]] && [ -z "$tmux" ]; then
+#   exec tmux
+# fi
 
 # Default editor
 export VISUAL=nvim
