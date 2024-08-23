@@ -21,7 +21,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 
 # Plugins
-plugins=(git)
+plugins=(alias-finder aliases brew dotenv git python)
 
 # Sourcing 'omz'
 source $ZSH/oh-my-zsh.sh
@@ -34,6 +34,10 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux
 fi
 
+# Configuration for 'alias-finder' plugin
+zstyle ':omz:plugins:alias-finder' autoload yes
+zstyle ':omz:plugins:alias-finder' cheaper yes
+
 # User configuration
 export COLORTERM="truecolor"
 export LANG=en_US.UTF-8
@@ -45,23 +49,32 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 
+# Configuration for 'python' plugin
+export PYTHON_VENV_NAME=".venv"
+export PYTHON_AUTO_VRUN=true
+
 # User aliases
 alias dev='cd ~/Dev'
 alias fm='frogmouth'
 alias ld='lazydocker'
 alias lg='lazygit'
-alias mkvenv='virtualenv .venv'
 alias ohmyzsh="mate ~/.oh-my-zshi"
 alias pi='ssh hajizar@pi.local'
-alias requirements='pip install -r requirements.txt'
-alias rmvenv='rm -rf .venv'
 alias starman='ssh hajizar@starman.local'
-alias tkill='tmux kill-session -t'
-alias tls='tmux ls'
-alias tselect='tmux attach-session -t'
-alias venv='source .venv/bin/activate'
+alias ta='tmux attach -t'
+alias tad='tmux attach -d -t'
+alias tkss='tmux kill-session -t'
+alias tksv='tmux kill-server'
+alias tl='tmux list-sessions'
+alias ts='tmux new-session -s'alias venv='source .venv/bin/activate'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
 alias zshconfig="mate ~/.zshrc"
 alias zshrc='source ~/.zshrc'
+
+# User function aliases
+dpurge() {
+  sudo docker stop $(sudo docker ps -q)
+  sudo docker rm $(sudo docker ps -aq)
+}
 

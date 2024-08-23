@@ -20,7 +20,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 # Plugins
-plugins=(git)
+plugins=(alias-finder aliases archlinux brew dotenv git gitignore python)
 
 # Sourcing 'omz'
 source $ZSH/oh-my-zsh.sh
@@ -28,10 +28,9 @@ source $ZSH/oh-my-zsh.sh
 # Sourcing 'p10k'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Open tmux by default
-if [ -t 1 ] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux
-fi
+# Configuration for 'alias-finder' plugin
+zstyle ':omz:plugins:alias-finder' autoload yes
+zstyle ':omz:plugins:alias-finder' cheaper yes
 
 # User configuration
 export COLORTERM="truecolor"
@@ -45,6 +44,10 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
 
+# Configuration for 'python' plugin
+export PYTHON_VENV_NAME=".venv"
+export PYTHON_AUTO_VRUN=true
+
 # User aliases
 alias dev='cd ~/Dev'
 alias fm='frogmouth'
@@ -54,13 +57,13 @@ alias lg='lazygit'
 alias mkvenv='virtualenv .venv'
 alias pbcopy='xclip -selection clipboard'
 alias pi='ssh hajizar@pi.local'
-alias requirements='pip install -r requirements.txt'
-alias rmvenv='rm -rf .venv'
-alias tkill='tmux kill-session -t'
-alias tls='tmux ls'
-alias tselect='tmux attach-session -t'
+alias ta='tmux attach -t'
+alias tad='tmux attach -d -t'
+alias tkss='tmux kill-session -t'
+alias tksv='tmux kill-server'
+alias tl='tmux list-sessions'
 alias tms='transmission-cli'
-alias venv='source .venv/bin/activate'
+alias ts='tmux new-session -s'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
 alias zshrc='source ~/.zshrc'
