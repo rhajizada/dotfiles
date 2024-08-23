@@ -78,34 +78,13 @@ if ! shopt -oq posix; then
 fi
 
 # Open tmux by default
-if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
-fi
+# if command -v tmux &>/dev/null && [ -n "$ps1" ] && [[ ! "$term" =~ screen ]] && [[ ! "$term" =~ tmux ]] && [ -z "$tmux" ]; then
+#   exec tmux
+# fi
 
 # Default editor
 export VISUAL=nvim
 export EDITOR=nvim
-
-# User aliases
-alias bashrc='source ~/.bashrc'
-alias vim='nvim'
-alias dev='cd ~/Dev'
-alias pi='ssh hajizar@pi.local'
-alias requirements='pip install -r requirements.txt'
-alias vb='vim ~/.bashrc'
-alias venv='source .venv/bin/activate'
-alias lg='lazygit'
-alias ld='lazydocker'
-alias kubectl='microk8s kubectl'
-alias tms='transmission-cli'
-alias pbcopy='xclip -selection clipboard'
-alias fm='frogmouth'
-
-# User function aliases
-dpurge() {
-  sudo docker stop $(sudo docker ps -q)
-  sudo docker rm $(sudo docker ps -aq)
-}
 
 # Sourcing local packages
 export PATH="$HOME/.local/bin:$PATH"
@@ -116,3 +95,24 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 # Snap packages
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
+
+# User aliases
+alias bashrc='source ~/.bashrc'
+alias dev='cd ~/Dev'
+alias fm='frogmouth'
+alias kubectl='microk8s kubectl'
+alias ld='lazydocker'
+alias lg='lazygit'
+alias pbcopy='xclip -selection clipboard'
+alias pi='ssh hajizar@pi.local'
+alias requirements='pip install -r requirements.txt'
+alias tms='transmission-cli'
+alias vb='vim ~/.bashrc'
+alias venv='source .venv/bin/activate'
+alias vim='nvim'
+
+# User function aliases
+dpurge() {
+  sudo docker stop $(sudo docker ps -q)
+  sudo docker rm $(sudo docker ps -aq)
+}

@@ -39,7 +39,7 @@ config:
 config-darwin: alacritty gitconfig nvim tmux zshrc
 
 .PHONY: config-linux
-config-linux: alacritty bashrc gitconfig nvim tmux ulauncher
+config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
@@ -108,36 +108,24 @@ tmux:
 ulauncher:
 	rm -rf $(XDG_CONFIG_HOME)/ulauncher
 	ln -sf "$(CONFIG_DIR)/ulauncher" "$(XDG_CONFIG_HOME)/ulauncher"
-	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Qogir-ulauncher-theme" ]; then \
-		echo "Installing 'Qogir-ulauncher-theme' ulauncher theme"; \
-		git clone git@github.com:bahadirdonmez/Qogir-ulauncher-theme.git $(CONFIG_DIR)/ulauncher/user-themes/Qogir-ulauncher-theme; \
-	fi
-	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/ulauncher-eigen" ]; then \
-		echo "Installing 'ulauncher-eigen' ulauncher theme"; \
-		git clone git@github.com:sotsugov/ulauncher-eigen.git $(CONFIG_DIR)/ulauncher/user-themes/ulauncher-eigen; \
-	fi
 	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Ulauncher-Essential-Dark-Theme" ]; then \
 		echo "Installing 'Ulauncher-Essential-Dark-Theme' ulauncher theme"; \
 		git clone git@github.com:GiorgioReale/Ulauncher-Essential-Dark-Theme.git $(CONFIG_DIR)/ulauncher/user-themes/Ulauncher-Essential-Dark-Theme; \
-	fi
-	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/Matcha-Dark-Azul-ulauncher" ]; then \
-		echo "Installing 'Matcha-Dark-Azul-ulauncher' ulauncher theme"; \
-		git clone git@github.com:DaveHigs/Matcha-Dark-Azul-ulauncher.git $(CONFIG_DIR)/ulauncher/user-themes/Matcha-Dark-Azul-ulauncher; \
-	fi
-	if [ ! -d "$(CONFIG_DIR)/ulauncher/user-themes/tron" ]; then \
-		echo "Installing 'tron' ulauncher theme"; \
-		git clone git@github.com:OMEN44/tron.git /tmp/tron; \
-		mv /tmp/tron/tron $(CONFIG_DIR)/ulauncher/user-themes/tron; \
-		rm -rf /tmp/tron; \
 	fi
 
 .PHONY: zshrc
 ## zshrc: Setup symlink for zsh configuration
 zshrc:
+	if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
+		git clone https://github.com/ohmyzsh/ohmyzsh.git $(HOME)/.oh-my-zsh; \
+	fi
+	if [ ! -d $(HOME)/.oh-my-zsh/themes/powerlevel10k ]; then \
+		git clone https://github.com/romkatv/powerlevel10k.git $(HOME)/.oh-my-zsh/themes/powerlevel10k; \
+	fi
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(HOME)/.p10k.zsh
-	ln -sf "$(CONFIG_DIR)/zsh/.zshrc" "$(HOME)/.zshrc"
-	ln -sf "$(CONFIG_DIR)/zsh/.p10k.zsh" "$(HOME)/.p10k.zsh"
+	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.zshrc" "$(HOME)/.zshrc"
+	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
 .PHONY: help
 ## help: Show help message

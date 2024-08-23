@@ -19,9 +19,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Automatically updating 'omz'
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
-
 # Plugins
-plugins=(git)
+plugins=(alias-finder aliases archlinux brew dotenv git gitignore python)
 
 # Sourcing 'omz'
 source $ZSH/oh-my-zsh.sh
@@ -29,38 +28,49 @@ source $ZSH/oh-my-zsh.sh
 # Sourcing 'p10k'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Start tmux automatically
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux
-fi
+# Configuration for 'alias-finder' plugin
+zstyle ':omz:plugins:alias-finder' autoload yes
+zstyle ':omz:plugins:alias-finder' cheaper yes
 
 # User configuration
+export COLORTERM="truecolor"
+export EDITOR=nvim
 export LANG=en_US.UTF-8
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export LESSOPEN="|pygmentize -g %s"
+export TERM="xterm-256color"
+export VISUAL=nvim
+
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+export PATH="$PATH:/snap/bin"
+export PATH="$PATH:/var/lib/snapd/snap/bin"
+
+# Configuration for 'python' plugin
+export PYTHON_VENV_NAME=".venv"
+export PYTHON_AUTO_VRUN=true
 
 # User aliases
-export TERM="xterm-256color"
-export COLORTERM="truecolor"
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zshi"
-alias zshrc='source ~/.zshrc'
 alias dev='cd ~/Dev'
+alias fm='frogmouth'
+alias kubectl='microk8s kubectl'
+alias ld='lazydocker'
+alias lg='lazygit'
+alias mkvenv='virtualenv .venv'
+alias pbcopy='xclip -selection clipboard'
+alias pi='ssh hajizar@pi.local'
+alias ta='tmux attach -t'
+alias tad='tmux attach -d -t'
+alias tkss='tmux kill-session -t'
+alias tksv='tmux kill-server'
+alias tl='tmux list-sessions'
+alias tms='transmission-cli'
+alias ts='tmux new-session -s'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
-alias tls='tmux ls'
-alias tkill='tmux kill-session -t'
-alias pi='ssh hajizar@pi.local'
-alias starman='ssh hajizar@starman.local'
-alias venv='source .venv/bin/activate'
-alias mkvenv='virtualenv .venv'
-alias rmvenv='rm -rf .venv'
-alias tselect='tmux attach-session -t'
-alias requirements='pip install -r requirements.txt'
-alias lg='lazygit'
-alias ld='lazydocker'
-alias fm='frogmouth'
+alias zshrc='source ~/.zshrc'
+
+# User function aliases
+dpurge() {
+  sudo docker stop $(sudo docker ps -q)
+  sudo docker rm $(sudo docker ps -aq)
+}
 
