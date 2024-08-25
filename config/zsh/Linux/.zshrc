@@ -20,7 +20,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 # Plugins
-plugins=(alias-finder aliases archlinux brew dotenv git gitignore python)
+plugins=(alias-finder aliases archlinux brew dotenv git gitignore golang python)
 
 # Sourcing 'omz'
 source $ZSH/oh-my-zsh.sh
