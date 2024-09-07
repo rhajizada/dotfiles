@@ -21,7 +21,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 
 # Plugins
-plugins=(alias-finder aliases brew dotenv git golang python)
+plugins=(alias-finder aliases brew dotenv git gitignore golang python)
 
 # Sourcing 'omz'
 source $ZSH/oh-my-zsh.sh
