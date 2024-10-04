@@ -100,8 +100,11 @@ nvim:
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
 tmux:
+	if [ ! -d "$(HOME)/.tmux/plugins/tpm" ]; then \
+		git clone https://github.com/tmux-plugins/tpm $(HOME)/.tmux/plugins/tpm; \
+	fi
 	rm -f $(HOME)/.tmux.conf
-	ln -sf "$(CONFIG_DIR)/tmux/$(UNAME)/.tmux.conf" "$(HOME)/.tmux.conf"; \
+	ln -sf "$(CONFIG_DIR)/tmux/$(UNAME)/.tmux.conf" "$(HOME)/.tmux.conf"
 
 .PHONY: ulauncher
 ## ulauncher: Setup symlink for ulauncher configuration
