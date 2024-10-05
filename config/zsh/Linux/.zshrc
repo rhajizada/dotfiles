@@ -43,6 +43,7 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
+export PATH="$HOME/go/bin:$PATH"
 
 # Configuration for 'python' plugin
 export PYTHON_VENV_NAME=".venv"
