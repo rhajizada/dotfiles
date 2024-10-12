@@ -1,5 +1,4 @@
-import = ["~/.config/alacritty/themes/github_dark_high_contrast.toml"]
-
+import = ["~/.config/alacritty/themes/carbonfox.toml"]
 [font]
 normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 size = 12
@@ -10,4 +9,3 @@ decorations = "none"
 [window.padding]
 x = 7
 y = 0
-

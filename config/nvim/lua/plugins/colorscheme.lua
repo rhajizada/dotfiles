@@ -1,46 +1,37 @@
 return {
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    opts = {
-      term_colors = true,
-      transparent_background = false,
-      styles = {
-        comments = {},
-        conditionals = {},
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-      },
-      color_overrides = {
-        mocha = {
-          base = "#000000",
-          mantle = "#000000",
-          crust = "#000000",
+    "EdenEast/nightfox.nvim",
+    config = function()
+      require("nightfox").setup({
+        options = {
+          transparent = true,
+          styles = {
+            comments = "italic",
+            keywords = "bold",
+            functions = "italic,bold",
+          },
         },
-      },
-      integrations = {
-        telescope = {
-          enabled = true,
-          style = "nvchad",
+        palettes = {
+          carbonfox = {
+            bg0 = "#000000",
+            bg1 = "#000000",
+            bg2 = "#000000",
+            bg3 = "#000000",
+            bg4 = "#000000",
+            comment = "#60728a",
+          },
         },
-        dropbar = {
-          enabled = true,
-          color_mode = true,
+        groups = {
+          carbonfox = {
+            Normal = { bg = "NONE" },
+            NormalNC = { bg = "NONE" },
+            SignColumn = { bg = "NONE" },
+            VertSplit = { bg = "NONE" },
+            EndOfBuffer = { bg = "NONE" },
+          },
         },
-      },
-    },
+      })
+      vim.cmd("colorscheme carbonfox")
+    end,
   },
 }

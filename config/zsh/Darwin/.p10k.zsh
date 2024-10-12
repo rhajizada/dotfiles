@@ -59,7 +59,7 @@
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
     # node_version          # node.js version
-    # go_version            # go version (https://golang.org)
+    go_version            # go version (https://golang.org)
     # rust_version          # rustc version (https://www.rust-lang.org)
     # dotnet_version        # .NET version (https://dotnet.microsoft.com)
     # php_version           # php version (https://www.php.net/)
@@ -97,9 +97,9 @@
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     chezmoi_shell           # chezmoi shell (https://www.chezmoi.io/)
     # vpn_ip                # virtual private network indicator
-    # load                  # CPU load
+    load                  # CPU load
     # disk_usage            # disk usage
-    # ram                   # free RAM
+    ram                   # free RAM
     # swap                  # used swap
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
@@ -107,6 +107,7 @@
     per_directory_history   # Oh My Zsh per-directory-history local/global indicator
     # cpu_arch              # CPU architecture
     time                    # current time
+    battery
     # =========================[ Line #2 ]=========================
     newline
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -1699,7 +1700,7 @@
   #   - verbose: Enable instant prompt and print a warning when detecting console output during
   #              zsh initialization. Choose this if you've never tried instant prompt, haven't
   #              seen the warning, or if you are unsure what this all means.
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
   # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
@@ -1712,8 +1713,55 @@
   (( ! $+functions[p10k] )) || p10k reload
 }
 
-# Tell `p10k configure` which file it should overwrite.
-typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
+# Carbonfox colors
+typeset -g POWERLEVEL9K_BACKGROUND=16  # Black background
+typeset -g POWERLEVEL9K_USER_FOREGROUND=250  # Light gray
+typeset -g POWERLEVEL9K_USER_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=75       # Carbonfox blue
+typeset -g POWERLEVEL9K_DIR_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_ANCHOR_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_HOME_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_PATH_SEPARATOR_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_PATH_SEPARATOR_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_SHORTENED_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_ETC_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=75
+typeset -g POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=16
+typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER_COLOR=75
+typeset -g POWERLEVEL9K_VCS_FOREGROUND=78       # Carbonfox green
+typeset -g POWERLEVEL9K_VCS_BACKGROUND=16
+typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=78
+typeset -g POWERLEVEL9K_VCS_ADDED_FOREGROUND=78        # Files added
+typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=78     # Files modified
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=78    # Untracked files
+typeset -g POWERLEVEL9K_VCS_STASH_FOREGROUND=78        # Stashed changes
+typeset -g POWERLEVEL9K_VCS_UNSTAGED_FOREGROUND=78     # Unstaged changes
+typeset -g POWERLEVEL9K_VCS_STAGED_FOREGROUND=78       # Staged changes
+typeset -g POWERLEVEL9K_VCS_CONFLICTED_FOREGROUND=160  # Conflicts (red)
+typeset -g POWERLEVEL9K_VCS_TAG_FOREGROUND=78          # Tags
+typeset -g POWERLEVEL9K_VCS_COMMIT_ICON_FOREGROUND=78  # Commit icon
+typeset -g POWERLEVEL9K_VCS_REMOTE_ICON_FOREGROUND=78  # Remote icon
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=220  # Yellow
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=16
+typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=160    # Red
+typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND=16
+typeset -g POWERLEVEL9K_BATTERY_FOREGROUND=78         # Carbonfox green
+typeset -g POWERLEVEL9K_BATTERY_BACKGROUND=16
+typeset -g POWERLEVEL9K_TIME_FOREGROUND=78            # Carbonfox green
+typeset -g POWERLEVEL9K_TIME_BACKGROUND=16
+typeset -g POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND=160  # Red
+typeset -g POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND=16
+typeset -g POWERLEVEL9K_PROMPT_CHAR_FOREGROUND=250    # Light gray
+typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=16
+typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT=true
+typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_FOREGROUND=160           # Red for root user
+typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_FOREGROUND=160        # Red for root user
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
