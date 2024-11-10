@@ -49,6 +49,8 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="/opt/homebrew/opt/openldap/bin:$PATH"
+export PATH="/opt/homebrew/opt/openldap/sbin:$PATH"
 
 # Configuration for 'python' plugin
 export PYTHON_VENV_NAME=".venv"
