@@ -5,8 +5,7 @@ normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 size = 12
 
 [window]
-decorations = "Buttonless"
-startup_mode = "Maximized"
+decorations = "none"
 
 [window.padding]
 x = 7
