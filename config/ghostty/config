@@ -1,0 +1,11 @@
+font-family = "JetBrainsMono Nerd Font"
+font-style = "Regular"
+font-size = 16
+font-thicken = true
+shell-integration = zsh
+theme = github-dark-high-contrast
+link-url = true
+window-padding-x = 7
+window-padding-y = 0
+window-vsync = true
+window-decoration = false

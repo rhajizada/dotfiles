@@ -1,7 +1,6 @@
 NAME := "dotfile"
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
-DISTRO := $(shell cat /etc/os-release | grep ^ID= | cut -d= -f2)
 UNAME := "$(shell uname)"
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
@@ -36,7 +35,7 @@ config:
 	fi
 
 .PHONY: config-darwin
-config-darwin: alacritty gitconfig nvim tmux zshrc
+config-darwin: ghostty gitconfig nvim tmux zshrc
 
 .PHONY: config-linux
 config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
@@ -44,48 +43,36 @@ config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
 .PHONY: fonts
 ## fonts: Setup nerd fonts
 fonts:
-	if [ "$(UNAME)" = "Linux" ]; then \
-			$(MAKE) fonts-linux; \
-	elif [ "$(UNAME)" = "Darwin" ]; then \
-			$(MAKE) fonts-darwin; \
-	fi
-
-.PHONY: fonts-darwin
-fonts-darwin:
-	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-	unzip CascadiaMono.zip -d CascadiaFont
-	cp CascadiaFont/*.ttf $(HOME)/Library/Fonts/
-	rm -rf CascadiaMono.zip CascadiaFont
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-	unzip JetBrainsMono.zip -d JetBrainsMono
-	cp JetBrainsMono/*.ttf $(HOME)/Library/Fonts/
-	rm -rf JetBrainsMono.zip JetBrainsMono
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
-	unzip Meslo.zip -d Meslo
-	cp Meslo/*ttf $(HOME)/Library/Fonts/
-	rm -rf Meslo.zip Meslo
-
-.PHONY: fonts-linux
-fonts-linux:
-	wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-	unzip CascadiaMono.zip -d CascadiaFont
-	cp CascadiaFont/*.ttf $(HOME)/.local/share/fonts
-	rm -rf CascadiaMono.zip CascadiaFont
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-	unzip JetBrainsMono.zip -d JetBrainsMono
-	cp JetBrainsMono/*.ttf $(HOME)/.local/share/fonts
-	rm -rf JetBrainsMono.zip JetBrainsMono
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
-	unzip Meslo.zip -d Meslo
-	cp Meslo/*ttf $(HOME)/.local/share/fonts
-	rm -rf Meslo.zip Meslo
-	fc-cache
+	@if [ "$(UNAME)" = "Darwin" ]; then \
+		FONTS_DIR="$(HOME)/Library/Fonts"; \
+	elif [ "$(UNAME)" = "Linux" ]; then \
+		FONTS_DIR="$(HOME)/.local/share/fonts"; \
+	else \
+		echo "Unsupported OS: $(UNAME)"; exit 1; \
+	fi; \
+	cd /tmp && { \
+		for FONT in CascadiaMono JetBrainsMono Meslo; do \
+			wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$${FONT}.zip && \
+			unzip $${FONT}.zip -d $${FONT} && \
+			cp $${FONT}/*.ttf $${FONTS_DIR}/ && \
+			rm -rf $${FONT}.zip $${FONT}; \
+		done; \
+		if [ "$(UNAME)" = "Linux" ]; then \
+			fc-cache -fv; \
+		fi; \
+	}
 
 .PHONY: gitconfig
 ## gitconfig: Setup symlink for gitconfig
 gitconfig:
 	rm -f $(HOME)/.gitconfig
 	ln -sf "$(CONFIG_DIR)/git/.gitconfig" "$(HOME)/.gitconfig"
+
+.PHONY: ghostty
+## ghostty: Setup symlink for ghostty
+ghostty:
+	rm -rf $(XDG_CONFIG_HOME)/ghostty
+	ln -sf "$(CONFIG_DIR)/ghostty" "$(XDG_CONFIG_HOME)/ghostty"
 
 .PHONY: nvim
 ## nvim: Setup symlink for nvim configuration
