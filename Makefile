@@ -72,6 +72,7 @@ gitconfig:
 ## ghostty: Setup symlink for ghostty
 ghostty:
 	rm -rf $(XDG_CONFIG_HOME)/ghostty
+	ln -sf "$(CONFIG_DIR)/ghostty/$(UNAME)/config" "$(CONFIG_DIR)/ghostty/config"; \
 	ln -sf "$(CONFIG_DIR)/ghostty" "$(XDG_CONFIG_HOME)/ghostty"
 
 .PHONY: nvim
