@@ -1,4 +1,5 @@
 config/alacritty/alacritty.toml
+config/ghostty/config
 config/ulauncher/user-themes/*
 !config/ulauncher/user-themes/.keep
 .venv
