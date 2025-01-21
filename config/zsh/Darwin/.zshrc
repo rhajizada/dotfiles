@@ -59,6 +59,7 @@ export PYTHON_AUTO_VRUN=true
 # User aliases
 alias dev='cd ~/Dev'
 alias fm='frogmouth'
+alias fzf='fzf --tmux'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias ohmyzsh="mate ~/.oh-my-zshi"
@@ -81,3 +82,5 @@ dpurge() {
   sudo docker rm $(sudo docker ps -aq)
 }
 
+# Shell integration for 'fzf'
+source <(fzf --zsh)
