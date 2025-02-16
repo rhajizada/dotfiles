@@ -52,13 +52,13 @@ export PYTHON_AUTO_VRUN=true
 
 # User aliases
 alias dev='cd ~/Dev'
-alias fm='frogmouth'
-alias kubectl='microk8s kubectl'
+alias fzf='fzf --tmux'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias mkvenv='virtualenv .venv'
 alias pbcopy='xclip -selection clipboard'
 alias pi='ssh hajizar@pi.local'
+alias task='go-task'
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
 alias tkss='tmux kill-session -t'
@@ -76,3 +76,6 @@ dpurge() {
   sudo docker rm $(sudo docker ps -aq)
 }
 
+
+source <(fzf --zsh)
+eval "$(task --completion zsh)"
