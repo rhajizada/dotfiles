@@ -84,3 +84,10 @@ dpurge() {
 
 # Shell integration for 'fzf'
 source <(fzf --zsh)
+
+# bun completions
+[ -s "/Users/hajizar/.bun/_bun" ] && source "/Users/hajizar/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
