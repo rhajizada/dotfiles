@@ -76,6 +76,7 @@ dpurge() {
   sudo docker rm $(sudo docker ps -aq)
 }
 
-
 source <(fzf --zsh)
-eval "$(task --completion zsh)"
+if command -v task &> /dev/null; then
+  eval "$(task --completion zsh)"
+fi

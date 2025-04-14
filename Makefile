@@ -118,6 +118,16 @@ zshrc:
 	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.zshrc" "$(HOME)/.zshrc"
 	ln -sf "$(CONFIG_DIR)/zsh/$(UNAME)/.p10k.zsh" "$(HOME)/.p10k.zsh"
 
+.PHONY: docker
+## docker: Build Docker image with environmment setup
+docker:
+	docker build --build-arg USERNAME=$$USER -t dotfiles . --platform linux/amd64
+
+.PHONY: shell
+## shell: Launch shell inside built docker container
+shell: docker
+	docker run -it -v dotfiles:/home/$$USER dotfiles
+
 .PHONY: help
 ## help: Show help message
 help: Makefile
