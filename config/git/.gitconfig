@@ -28,4 +28,5 @@
 [diff]
   colorMoved = default
         tool = delta
-
+[credential]
+	helper = store
