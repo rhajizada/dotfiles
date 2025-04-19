@@ -1,5 +1,4 @@
 brew "sqlite"
-brew "python@3.12"
 brew "fzf"
 brew "gh"
 brew "git-delta"

@@ -21,7 +21,7 @@ RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ${HOME}/.oh-my-zsh && \
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
 COPY Brewfile /etc/dotfiles/Brewfile
 RUN brew bundle --file=/etc/dotfiles/Brewfile
-RUN nvim --headless +"Lazy! sync" +qa
+RUN nvim --headless +"Lazy! restore" +qa
 VOLUME ["/home/${USERNAME}"]
 CMD ["/bin/zsh"]
 
