@@ -31,10 +31,6 @@
     "branch": "main",
     "commit": "73d2c590c74a0c582144987a4decb4a642755859"
   },
-  "diffview.nvim": {
-    "branch": "main",
-    "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a"
-  },
   "filetype.nvim": {
     "branch": "main",
     "commit": "15891eb2b138d54b08aef793c43901910ec6879f"
@@ -174,10 +170,6 @@
   "nvim-lspconfig": {
     "branch": "master",
     "commit": "32b6a6449aaba11461fffbb596dd6310af79eea4"
-  },
-  "nvim-navic": {
-    "branch": "master",
-    "commit": "39231352aec0d1e09cebbffdd9dc20a5dc691ffe"
   },
   "nvim-nio": {
     "branch": "master",
