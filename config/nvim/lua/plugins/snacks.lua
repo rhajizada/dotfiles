@@ -7,5 +7,8 @@ return {
         ignored = true,
       },
     },
+    keys = {
+      { "<leader>gd", false },
+    },
   },
 }
