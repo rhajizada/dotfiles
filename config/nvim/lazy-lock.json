@@ -9,7 +9,7 @@
   },
   "blink.cmp": {
     "branch": "main",
-    "commit": "cb5e346d9e0efa7a3eee7fd4da0b690c48d2a98e"
+    "commit": "4f38ce99a472932d5776337f08f7a8180f1f571a"
   },
   "bufferline.nvim": {
     "branch": "main",
@@ -18,6 +18,10 @@
   "catppuccin": {
     "branch": "main",
     "commit": "b7bbdf93b42866f166af98d39a2563eedb7cabac"
+  },
+  "clangd_extensions.nvim": {
+    "branch": "main",
+    "commit": "db28f29be928d18cbfb86fbfb9f83f584f658feb"
   },
   "codewindow.nvim": {
     "branch": "master",
@@ -169,7 +173,7 @@
   },
   "nvim-lspconfig": {
     "branch": "master",
-    "commit": "94d0fec9135719e046903bbbbf8f39e3d3436d4e"
+    "commit": "46434074f188e6bfccf9d9153dd8be6b1381498b"
   },
   "nvim-nio": {
     "branch": "master",
@@ -197,7 +201,7 @@
   },
   "one-small-step-for-vimkind": {
     "branch": "main",
-    "commit": "319346e4d977623c7af66c1c520531b68b8c3542"
+    "commit": "c62c728a5ac1ff72da87991f63e1142e0351a4d4"
   },
   "outline.nvim": {
     "branch": "main",
@@ -225,11 +229,11 @@
   },
   "render-markdown.nvim": {
     "branch": "main",
-    "commit": "8c33733b9af902250731539b2fe3920c76993765"
+    "commit": "57c7f33f276876c994898683680da9e3a3590d0d"
   },
   "rustaceanvim": {
     "branch": "master",
-    "commit": "3f2b7a94b7fa3c0f301dfa9644c94b543000efc2"
+    "commit": "4b8c2edb55f548ed9c683f88dde2ffb235413b03"
   },
   "snacks.nvim": {
     "branch": "main",
@@ -258,6 +262,22 @@
   "venv-selector.nvim": {
     "branch": "regexp",
     "commit": "c677caa1030808a9f90092e522de7cc20c1390dd"
+  },
+  "vim-dadbod": {
+    "branch": "master",
+    "commit": "fa31d0ffeebaa59cf97a81e7f92194cced54a13f"
+  },
+  "vim-dadbod-completion": {
+    "branch": "master",
+    "commit": "a8dac0b3cf6132c80dc9b18bef36d4cf7a9e1fe6"
+  },
+  "vim-dadbod-ui": {
+    "branch": "master",
+    "commit": "460432301a5cb280ea265ddfa15c9f3dcd1d26b7"
+  },
+  "vim-helm": {
+    "branch": "master",
+    "commit": "ae1ebc160d2b9b90108477ab10df7a4fc501e358"
   },
   "vim-illuminate": {
     "branch": "master",

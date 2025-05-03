@@ -8,6 +8,7 @@ return {
       },
     },
     keys = {
+      { "<leader>gd", false },
       {
         "<leader>gT",
         function()
