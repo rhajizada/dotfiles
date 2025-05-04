@@ -133,7 +133,7 @@
   },
   "neogen": {
     "branch": "main",
-    "commit": "05d754004da8c89115b291f2a23ca530a8cac8fd"
+    "commit": "d7f9461727751fb07f82011051338a9aba07581d"
   },
   "noice.nvim": {
     "branch": "main",
@@ -141,7 +141,7 @@
   },
   "nui.nvim": {
     "branch": "main",
-    "commit": "8d5b0b568517935d3c84f257f272ef004d9f5a59"
+    "commit": "f535005e6ad1016383f24e39559833759453564e"
   },
   "nvim-dap": {
     "branch": "master",
@@ -173,7 +173,7 @@
   },
   "nvim-lspconfig": {
     "branch": "master",
-    "commit": "46434074f188e6bfccf9d9153dd8be6b1381498b"
+    "commit": "1b801f68d09e70e59e6dd967b663b6d84ee3e87d"
   },
   "nvim-nio": {
     "branch": "master",
@@ -201,7 +201,7 @@
   },
   "one-small-step-for-vimkind": {
     "branch": "main",
-    "commit": "c62c728a5ac1ff72da87991f63e1142e0351a4d4"
+    "commit": "2321d99ebb28ef1241ce5d3562f8451b4e58510d"
   },
   "outline.nvim": {
     "branch": "main",
@@ -229,11 +229,11 @@
   },
   "render-markdown.nvim": {
     "branch": "main",
-    "commit": "57c7f33f276876c994898683680da9e3a3590d0d"
+    "commit": "3484e3ec3831deacc28a5d1e3307693b8c997c6c"
   },
   "rustaceanvim": {
     "branch": "master",
-    "commit": "4b8c2edb55f548ed9c683f88dde2ffb235413b03"
+    "commit": "e254aa12c2340356d8d7a5851f8511f35c60e53c"
   },
   "snacks.nvim": {
     "branch": "main",
