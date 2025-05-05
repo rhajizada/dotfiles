@@ -1,4 +1,4 @@
-NAME := "dotfile"
+NAME := "dotfiles"
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
 UNAME := "$(shell uname)"
