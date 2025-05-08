@@ -89,5 +89,7 @@ source <(fzf --zsh)
 [ -s "/Users/hajizar/.bun/_bun" ] && source "/Users/hajizar/.bun/_bun"
 
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$$HOME/.bun/bin:$PATH"
+
+# nodenv
+export PATH="$HOME/.nodenv/shims:$PATH"
