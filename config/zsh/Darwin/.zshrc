@@ -93,3 +93,8 @@ export PATH="$$HOME/.bun/bin:$PATH"
 
 # nodenv
 export PATH="$HOME/.nodenv/shims:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/hajizar/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
