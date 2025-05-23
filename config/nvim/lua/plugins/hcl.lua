@@ -25,7 +25,7 @@ return {
         overrides = {
           extensions = {
             tf = "terraform",
-            tfvars = "terraform",
+            tfvars = "hcl",
             tfstate = "json",
           },
         },
