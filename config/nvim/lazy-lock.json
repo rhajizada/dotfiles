@@ -63,10 +63,6 @@
     "branch": "main",
     "commit": "7df08fff7da6ee08006fe8eaccc3407b89da368b"
   },
-  "hardtime.nvim": {
-    "branch": "main",
-    "commit": "b44e11d7a176f184db8b9666a1b41d5890aa5a5b"
-  },
   "harpoon": {
     "branch": "harpoon2",
     "commit": "ed1f853847ffd04b2b61c314865665e1dadf22c7"
@@ -193,7 +189,7 @@
   },
   "nvim-treesitter-textobjects": {
     "branch": "master",
-    "commit": "15f945eabde2a293ccf48eb28c214a69b643d6e1"
+    "commit": "0f051e9813a36481f48ca1f833897210dbcfffde"
   },
   "nvim-ts-autotag": {
     "branch": "main",
@@ -221,7 +217,7 @@
   },
   "placeholder": {
     "branch": "main",
-    "commit": "eb7521f2997de37138cbe777ed81e21a8ac28c19"
+    "commit": "6e07aefc3280e034b6300f07bc9281fb3c03d23d"
   },
   "plenary.nvim": {
     "branch": "master",
@@ -233,11 +229,15 @@
   },
   "render-markdown.nvim": {
     "branch": "main",
-    "commit": "dac01bd6660af337613e8cfcb23a4aec5d3c0e38"
+    "commit": "ca5c29f6032338b71bdcae9b3e525d131557d363"
   },
   "rustaceanvim": {
     "branch": "master",
     "commit": "277a6611da8736e8d8da1c7d988f5cc134596c41"
+  },
+  "screenkey.nvim": {
+    "branch": "main",
+    "commit": "16390931d847b1d5d77098daccac4e55654ac9e2"
   },
   "snacks.nvim": {
     "branch": "main",
