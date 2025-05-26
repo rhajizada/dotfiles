@@ -1,7 +1,7 @@
 # dotfiles
 
 Collection of configuration files for my development environment, plus Makefile
-that bootstraps everything with a single command. including:
+that bootstraps everything with a single command.
 
 ## Configurations
 
