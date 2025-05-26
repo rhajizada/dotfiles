@@ -4,6 +4,10 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    explorer = {
+      enabled = true,
+      replace_netrw = true,
+    },
     picker = {
       ignored = true,
       hidden = true,
