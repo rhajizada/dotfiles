@@ -1,13 +1,17 @@
-# Dotfiles
+# dotfiles
 
-This repository contains my personal dotfiles and configuration files for various tools and applications, including:
+Collection of configuration files for my development environment, plus Makefile
+that bootstraps everything with a single command. including:
 
-- **alacritty**: Alacritty theme and configuration
+## Configurations
+
+- **alacritty**: [`Alacritty`](https://alacritty.org/) theme and configuration
 - **bash**: Custom prompt, aliases, and functions
-- **tmux**: Configuration for terminal multiplexing
-- **neovim**: Setup with LazyVim and plugins
-- **zsh**: Custom prompt, aliases and functions for `zshell`
-- **git**: Git config
+- **ghostty**: [`Ghostty`](https://ghostty.org) theme and configuration
+- **git**: `git` configuration
+- **neovim**: [`Neovim`](https://neovim.io) configuration using [`LazyVim`](https://www.lazyvim.org)
+- **tmux**: [`tmux`](https://github.com/tmux/tmux) configuration and plugins
+- **zsh**: Custom `zsh` configuration using [`Oh My Zsh`](https://ohmyz.sh)
 
 ## Setup
 

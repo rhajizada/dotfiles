@@ -1,11 +1,12 @@
 return {
-  {
-    "folke/snacks.nvim",
-    opts = {
-      picker = {
-        hidden = true,
-        ignored = true,
-      },
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
+  opts = {
+    picker = {
+      ignored = true,
+      hidden = true,
     },
     keys = {
       { "<leader>gd", false },

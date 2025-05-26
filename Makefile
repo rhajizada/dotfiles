@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := help
 NAME := "dotfiles"
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
@@ -16,7 +17,7 @@ alacritty:
 	ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
 
 .PHONY: bashrc
-## bashrc: Setup symlink for .bashrc
+## bashrc: Setup symlink for bash configuration
 bashrc:
 	if [ ! -d "$(HOME)/.oh-my-bash" ]; then \
 		echo "Installing 'Oh My Bash'"; \
@@ -26,19 +27,13 @@ bashrc:
 	ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
 .PHONY: config
-## config: Setup user configuration
+## config: Deploy all configurations
 config:
 	if [ "$(UNAME)" = "Linux" ]; then \
-			$(MAKE) config-linux; \
+			$(MAKE) alacritty bashrc gitconfig nvim tmux ulauncher zshrc; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
-			$(MAKE) config-darwin; \
+			$(MAKE) ghostty gitconfig nvim tmux zshrc; \
 	fi
-
-.PHONY: config-darwin
-config-darwin: ghostty gitconfig nvim tmux zshrc
-
-.PHONY: config-linux
-config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
@@ -129,9 +124,7 @@ shell: docker
 .PHONY: help
 ## help: Show help message
 help: Makefile
-	echo
-	echo " Choose a command to run in "$(NAME)":"
-	echo
-	sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	echo
-
+	@echo " List of available targets for \"$(NAME)\":"
+	@echo
+	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
+	@echo

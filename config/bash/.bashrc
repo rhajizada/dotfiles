@@ -99,20 +99,10 @@ export PATH="$PATH:/var/lib/snapd/snap/bin"
 # User aliases
 alias bashrc='source ~/.bashrc'
 alias dev='cd ~/Dev'
-alias fm='frogmouth'
-alias kubectl='microk8s kubectl'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias pbcopy='xclip -selection clipboard'
-alias pi='ssh hajizar@pi.local'
-alias requirements='pip install -r requirements.txt'
-alias tms='transmission-cli'
 alias vb='vim ~/.bashrc'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
 
-# User function aliases
-dpurge() {
-  sudo docker stop $(sudo docker ps -q)
-  sudo docker rm $(sudo docker ps -aq)
-}

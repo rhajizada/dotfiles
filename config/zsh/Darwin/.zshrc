@@ -58,29 +58,21 @@ export PYTHON_AUTO_VRUN=true
 
 # User aliases
 alias dev='cd ~/Dev'
-alias fm='frogmouth'
 alias fzf='fzf --tmux'
 alias ld='lazydocker'
 alias lg='lazygit'
 alias ohmyzsh="mate ~/.oh-my-zshi"
-alias pi='ssh hajizar@pi.local'
-alias starman='ssh hajizar@starman.local'
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
 alias tkss='tmux kill-session -t'
 alias tksv='tmux kill-server'
 alias tl='tmux list-sessions'
-alias ts='tmux new-session -s'alias venv='source .venv/bin/activate'
+alias ts='tmux new-session -s'
+alias venv='source .venv/bin/activate'
 alias vim='nvim'
 alias vz='vim ~/.zshrc'
 alias zshconfig="mate ~/.zshrc"
 alias zshrc='source ~/.zshrc'
-
-# User function aliases
-dpurge() {
-  sudo docker stop $(sudo docker ps -q)
-  sudo docker rm $(sudo docker ps -aq)
-}
 
 # Shell integration for 'fzf'
 source <(fzf --zsh)
@@ -93,8 +85,8 @@ export PATH="$$HOME/.bun/bin:$PATH"
 
 # nodenv
 export PATH="$HOME/.nodenv/shims:$PATH"
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+
+# Docker CLI completions.
 fpath=(/Users/hajizar/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions
