@@ -26,6 +26,20 @@ bashrc:
 	rm -f $(HOME)/.bashrc.conf
 	ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
+.PHONY: brew
+## brew: Install brew and required brew packages
+brew:
+	@which brew >/dev/null 2>&1 || { \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	}
+	@if [ "$(UNAME)" = "Darwin" ]; then \
+		export PATH="/opt/homebrew/bin:$(PATH)"; \
+	elif [ "$(UNAME)" = "Linux" ]; then \
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; \
+	fi; \
+	brewfile="requirements/$(UNAME)/Brewfile"; \
+	brew bundle --file $${brewfile}
+
 .PHONY: config
 ## config: Deploy all configurations
 config:
