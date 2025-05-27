@@ -72,12 +72,6 @@ alias vim='nvim'
 alias vz='vim ~/.zshrc'
 alias zshrc='source ~/.zshrc'
 
-# User function aliases
-dpurge() {
-  sudo docker stop $(sudo docker ps -q)
-  sudo docker rm $(sudo docker ps -aq)
-}
-
 source <(fzf --zsh)
 if command -v task &> /dev/null; then
   eval "$(task --completion zsh)"

@@ -1,4 +1,5 @@
-NAME := "dotfile"
+.DEFAULT_GOAL := help
+NAME := "dotfiles"
 DOTFILES_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CONFIG_DIR := $(DOTFILES_DIR)/config
 UNAME := "$(shell uname)"
@@ -16,7 +17,7 @@ alacritty:
 	ln -sf "$(CONFIG_DIR)/alacritty" "$(XDG_CONFIG_HOME)/alacritty"
 
 .PHONY: bashrc
-## bashrc: Setup symlink for .bashrc
+## bashrc: Setup symlink for bash configuration
 bashrc:
 	if [ ! -d "$(HOME)/.oh-my-bash" ]; then \
 		echo "Installing 'Oh My Bash'"; \
@@ -25,20 +26,28 @@ bashrc:
 	rm -f $(HOME)/.bashrc.conf
 	ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 
+.PHONY: brew
+## brew: Install brew and required brew packages
+brew:
+	@which brew >/dev/null 2>&1 || { \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	}
+	@if [ "$(UNAME)" = "Darwin" ]; then \
+		export PATH="/opt/homebrew/bin:$(PATH)"; \
+	elif [ "$(UNAME)" = "Linux" ]; then \
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; \
+	fi; \
+	brewfile="requirements/$(UNAME)/Brewfile"; \
+	brew bundle --file $${brewfile}
+
 .PHONY: config
-## config: Setup user configuration
+## config: Deploy all configurations
 config:
 	if [ "$(UNAME)" = "Linux" ]; then \
-			$(MAKE) config-linux; \
+			$(MAKE) alacritty bashrc gitconfig nvim tmux ulauncher zshrc; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
-			$(MAKE) config-darwin; \
+			$(MAKE) ghostty gitconfig nvim tmux zshrc; \
 	fi
-
-.PHONY: config-darwin
-config-darwin: ghostty gitconfig nvim tmux zshrc
-
-.PHONY: config-linux
-config-linux: alacritty bashrc gitconfig nvim tmux ulauncher zshrc
 
 .PHONY: fonts
 ## fonts: Setup nerd fonts
@@ -79,11 +88,9 @@ ghostty:
 ## nvim: Setup symlink for nvim configuration
 nvim:
 	rm -rf $(XDG_CONFIG_HOME)/nvim
+	rm -rf $(HOME)/.local/share/nvim
 	ln -sf "$(CONFIG_DIR)/nvim" "$(XDG_CONFIG_HOME)/nvim"
-	if [ "$(UNAME)" = "Linux" ]; then \
-		sudo mkdir "/root/.config"; \
-		sudo ln -sf "$(CONFIG_DIR)/nvim" "/root/.config/nvim"; \
-	fi
+	nvim --headless +"Lazy! sync" +qa
 
 .PHONY: tmux
 ## tmux: Setup symlink for tmux configuration
@@ -131,9 +138,7 @@ shell: docker
 .PHONY: help
 ## help: Show help message
 help: Makefile
-	echo
-	echo " Choose a command to run in "$(NAME)":"
-	echo
-	sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	echo
-
+	@echo " List of available targets for \"$(NAME)\":"
+	@echo
+	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
+	@echo

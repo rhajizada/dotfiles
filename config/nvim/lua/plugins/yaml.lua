@@ -79,46 +79,4 @@ return {
       },
     },
   },
-  {
-    "someone-stole-my-name/yaml-companion.nvim",
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    config = function()
-      require("telescope").load_extension("yaml_schema")
-      local cfg = require("yaml-companion").setup({
-        -- Add any options here, or leave empty to use the default settings
-        -- Additional schemas available in Telescope picker
-        schemas = {
-          {
-            name = "Kubernetes 1.25.9",
-            uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.9-standalone-strict/all.json",
-          },
-        },
-      })
-      require("lspconfig")["yamlls"].setup(cfg)
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    -- opts will be merged with the parent spec
-    opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, {
-        function()
-          return require("yaml-companion").get_buf_schema(0)
-        end,
-        cond = function()
-          local schema = require("yaml-companion").get_buf_schema(0)
-          if schema.result[1].name == "none" then
-            return ""
-          end
-          return schema.result[1].name
-        end,
-      })
-      table.insert(opts.sections.lualine_z, "😄")
-    end,
-  },
 }
