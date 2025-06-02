@@ -1,26 +1,30 @@
 return {
-  "folke/snacks.nvim",
-  priority = 1000,
-  lazy = false,
-  ---@type snacks.Config
-  opts = {
-    explorer = {
-      enabled = true,
-      replace_netrw = true,
-    },
-    picker = {
-      ignored = true,
-      hidden = true,
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      explorer = {
+        enabled = true,
+        replace_netrw = true,
+      },
+      picker = {
+        hidden = true,
+        ignored = true,
+        exclude = {
+          ".git",
+          ".hypothesis",
+          ".pytest_cache",
+          ".ruff_cache",
+          ".venv",
+          "__pycache__",
+          "node_modules",
+        },
+      },
     },
     keys = {
       { "<leader>gd", false },
-      {
-        "<leader>gT",
-        function()
-          Snacks.picker.git_diff()
-        end,
-        desc = "Git Diff (Hunks)",
-      },
     },
   },
 }
