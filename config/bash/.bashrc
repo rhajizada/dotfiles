@@ -4,11 +4,68 @@ case $- in
 esac
 
 # Path to your oh-my-bash installation.
-export OSH='/home/hajizar/.oh-my-bash'
+export OSH="$HOME/.oh-my-bash"
+
+# Docker segment for powerbash10k
+function __pb10k_prompt_docker {
+  # Check if running inside Docker
+  if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
+    local color box info
+
+    color=$_omb_prompt_bold_blue
+    info=" "
+    box=""
+
+    printf "%s|%s|%s|%s" \
+      "$color" \
+      "$info" \
+      "$_omb_prompt_bold_black" \
+      "$box"
+  fi
+}
+
+# OS segment for powerbash10k
+function __pb10k_prompt_os {
+  local color box info
+
+  color=$_omb_prompt_bold_white
+  box=""
+
+  if [[ "$(uname)" == "Darwin" ]]; then
+    info="macOS"
+  else
+    if [[ -r /etc/os-release ]]; then
+      # shellcheck disable=SC1091
+      . /etc/os-release
+      info="${PRETTY_NAME:-$NAME}"
+    else
+      info="Linux"
+    fi
+  fi
+
+  case "$info" in
+  *Ubuntu*) info=" " ;;
+  *Arch*) info=" " ;;
+  *Debian*) info=" " ;;
+  *Fedora*) info=" " ;;
+  *macOS*) info=" " ;;
+  *Rocky* | *Rocky\ Linux*) info=" " ;;
+  *openSUSE*) info=" " ;;
+  *) info=" " ;;
+  esac
+
+  printf "%s|%s|%s|%s" \
+    "$color" \
+    "$info" \
+    "$_omb_prompt_bold_black" \
+    "$box"
+}
+
+__PB10K_TOP_LEFT="os docker dir scm"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="powerline-multiline"
+OSH_THEME="powerbash10k"
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
@@ -86,15 +143,15 @@ fi
 export VISUAL=nvim
 export EDITOR=nvim
 
-# Sourcing local packages
-export PATH="$HOME/.local/bin:$PATH"
+# Shell integration for 'fzf'
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --bash)
+fi
 
-# Homebrew packages
-export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-
-# Snap packages
-export PATH="$PATH:/snap/bin"
-export PATH="$PATH:/var/lib/snapd/snap/bin"
+# Initializing nodenv
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
 
 # User aliases
 alias bashrc='source ~/.bashrc'
@@ -106,3 +163,15 @@ alias vb='vim ~/.bashrc'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
 
+# Sourcing local packages
+export PATH="$HOME/.local/bin:$PATH"
+
+# Homebrew packages
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+
+# Snap packages
+export PATH="$PATH:/snap/bin"
+export PATH="$PATH:/var/lib/snapd/snap/bin"
+
+# NPM packages
+export PATH="$(npm config get prefix)/bin:$PATH"
