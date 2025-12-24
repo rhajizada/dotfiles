@@ -16,9 +16,9 @@ return {
     opts = {
       setup = {
         yamlls = function()
-          require("snacks").util.lsp.on(function(client, bufnr)
+          require("snacks").util.lsp.on(function(_, client)
             if client.name == "yamlls" and vim.bo.filetype == "helm" then
-              vim.lsp.stop_client(bufnr, client.id)
+              vim.lsp.stop_client(client)
             end
           end)
         end,
