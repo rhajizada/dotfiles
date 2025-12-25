@@ -1,0 +1,22 @@
+name: build-docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          context: .
+          tags: dotfiles:latest
+          file: ./Dockerfile
+          build-args: USERNAME=github-actions
