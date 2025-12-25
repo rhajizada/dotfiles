@@ -45,6 +45,7 @@ function __pb10k_prompt_os {
 
   case "$info" in
   *Ubuntu*) info=" " ;;
+  *AlmaLinux*) info=" " ;;
   *Arch*) info=" " ;;
   *Debian*) info=" " ;;
   *Fedora*) info=" " ;;
