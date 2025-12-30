@@ -31,6 +31,14 @@ bashrc:
 	@ln -sf "$(CONFIG_DIR)/bash/.bashrc" "$(HOME)/.bashrc"
 	@echo "✅ Bash configured!"
 
+.PHONY: cradle
+## cradle: 👶 Setup symlink for cradle configuration
+cradle:
+	@echo "👶 Setting up cradle configuration..."
+	@rm -rf "$(XDG_CONFIG_HOME)/cradle"
+	@ln -sf "$(CONFIG_DIR)/cradle" "$(XDG_CONFIG_HOME)/cradle"
+	@echo "✅ Cradle configured!"
+
 
 .PHONY: brew
 ## brew: 🍺 Install brew and brew packages
@@ -54,9 +62,9 @@ brew:
 config:
 	@echo "⚙️ Setting up user configuration..."
 	@if [ "$(UNAME)" = "Linux" ]; then \
-		$(MAKE) alacritty bashrc gitconfig nvim tmux ulauncher zshrc; \
+		$(MAKE) alacritty bashrc cradle gitconfig nvim tmux ulauncher zshrc; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
-		$(MAKE) ghostty gitconfig nvim tmux zshrc; \
+		$(MAKE) cradle ghostty gitconfig nvim tmux zshrc; \
 	fi
 	@echo "✅ Configuration complete!"
 
