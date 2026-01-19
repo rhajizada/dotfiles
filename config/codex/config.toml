@@ -1,0 +1,27 @@
+[mcp]
+[mcp.duckduckgo]
+type = "stdio"
+command = "docker"
+args = ["run", "-i", "--rm", "mcp/duckduckgo"]
+
+[mcp.fetch]
+type = "stdio"
+command = "docker"
+args = ["run", "-i", "--rm", "mcp/fetch"]
+
+[mcp.next-devtools-mcp]
+type = "stdio"
+command = "docker"
+args = ["run", "-i", "--rm", "mcp/next-devtools-mcp"]
+
+[mcp.openapi]
+type = "stdio"
+command = "docker"
+args = ["run", "-i", "--rm", "-e", "MODE", "mcp/openapi"]
+env = { MODE = "Stdio" }
+
+[mcp.sequentialthinking]
+type = "stdio"
+command = "docker"
+args = ["run", "-i", "--rm", "-e", "MODE", "mcp/sequentialthinking"]
+env = { MODE = "Stdio" }
