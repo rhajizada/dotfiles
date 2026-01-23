@@ -65,14 +65,13 @@
         "apiKey": "{env:LLAMERO_API_KEY}",
       },
       "models": {
-        "llama3.1:8b-instruct-q4_K_M": {
-          "name": "Llama 3.1",
-        },
-        "qwen3:14b": {
+        "qwen3-coder-32k": {
           "name": "Qwen3",
-        },
-        "devstral-small-2:24b": {
-          "name": "Devstral 2",
+          "reasoning": false,
+          "limit": {
+            "context": 32768,
+            "output": 2048,
+          },
         },
       },
     },

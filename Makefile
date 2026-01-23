@@ -77,12 +77,12 @@ codex:
 	@echo "✅ codex configured!"
 
 .PHONY: opencode
-## opencode: 🧭 Setup symlink for opencode configuration
+## opencode: 👾 Setup symlink for OpenCode configuration
 opencode:
-	@echo "🧭 Setting up opencode configuration..."
+	@echo "👾 Setting up OpenCode configuration..."
 	@rm -rf "$(XDG_CONFIG_HOME)/opencode"
 	@ln -sf "$(CONFIG_DIR)/opencode" "$(XDG_CONFIG_HOME)/opencode"
-	@echo "✅ opencode configured!"
+	@echo "✅ OpenCode configured!"
 
 .PHONY: fonts
 ## fonts: 🔤 Setup nerd fonts
