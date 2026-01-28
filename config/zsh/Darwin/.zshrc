@@ -44,13 +44,15 @@ export LANG=en_US.UTF-8
 export LESSOPEN="|pygmentize -g %s"
 export TERM="xterm-256color"
 
+export PATH="$$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.nodenv/shims:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
 export PATH="/opt/homebrew/opt/openldap/bin:$PATH"
 export PATH="/opt/homebrew/opt/openldap/sbin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 
 # Configuration for 'python' plugin
 export PYTHON_VENV_NAME=".venv"
@@ -61,7 +63,6 @@ alias dev='cd ~/Dev'
 alias fzf='fzf --tmux'
 alias ld='lazydocker'
 alias lg='lazygit'
-alias ohmyzsh="mate ~/.oh-my-zshi"
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
 alias tkss='tmux kill-session -t'
@@ -70,23 +71,25 @@ alias tl='tmux list-sessions'
 alias ts='tmux new-session -s'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
-alias vz='vim ~/.zshrc'
-alias zshconfig="mate ~/.zshrc"
-alias zshrc='source ~/.zshrc'
 
-# Shell integration for 'fzf'
-source <(fzf --zsh)
+# Shell integration / auto-completion
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# bun completions
-[ -s "/Users/hajizar/.bun/_bun" ] && source "/Users/hajizar/.bun/_bun"
+if command -v cradle &> /dev/null; then
+  eval "$(cradle completion zsh)"
+fi
 
-# bun
-export PATH="$$HOME/.bun/bin:$PATH"
+if command -v docker &> /dev/null; then
+  fpath=($HOME/.docker/completions $fpath)
+  autoload -Uz compinit
+  compinit
+fi
 
-# nodenv
-export PATH="$HOME/.nodenv/shims:$PATH"
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+fi
 
-# Docker CLI completions.
-fpath=(/Users/hajizar/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+if command -v task &> /dev/null; then
+  eval "$(task --completion zsh)"
+fi
+

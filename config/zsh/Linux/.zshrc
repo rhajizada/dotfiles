@@ -39,12 +39,12 @@ export LANG=en_US.UTF-8
 export TERM="xterm-256color"
 export VISUAL=nvim
 
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
-export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
 
 # Configuration for 'python' plugin
 export PYTHON_VENV_NAME=".venv"
@@ -53,10 +53,8 @@ export PYTHON_AUTO_VRUN=true
 # User aliases
 alias dev='cd ~/Dev'
 alias fzf='fzf --tmux'
-alias kctl='kubectl'
 alias ld='lazydocker'
 alias lg='lazygit'
-alias mkvenv='virtualenv .venv'
 alias pbcopy='xclip -selection clipboard'
 alias pi='ssh hajizar@pi.local'
 alias ta='tmux attach -t'
@@ -68,10 +66,25 @@ alias tl='tmux list-sessions'
 alias tms='transmission-cli'
 alias ts='tmux new-session -s'
 alias vim='nvim'
-alias vz='vim ~/.zshrc'
-alias zshrc='source ~/.zshrc'
 
-source <(fzf --zsh)
+# Shell integration / auto-completion
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+if command -v cradle &> /dev/null; then
+  eval "$(cradle completion zsh)"
+fi
+
+if command -v docker &> /dev/null; then
+  fpath=($HOME/.docker/completions $fpath)
+  autoload -Uz compinit
+  compinit
+fi
+
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+fi
+
 if command -v task &> /dev/null; then
   eval "$(task --completion zsh)"
 fi
+
