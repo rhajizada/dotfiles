@@ -42,11 +42,11 @@ return {
     end, { desc = "opencode: add line", expr = true })
 
     -- Scroll the opencode session from anywhere
-    vim.keymap.set("n", "<C-u>", function()
+    vim.keymap.set("n", "<leader>au", function()
       require("opencode").command("session.half.page.up")
     end, { desc = "opencode: scroll up" })
 
-    vim.keymap.set("n", "<C-d>", function()
+    vim.keymap.set("n", "<leader>ad", function()
       require("opencode").command("session.half.page.down")
     end, { desc = "opencode: scroll down" })
   end,
