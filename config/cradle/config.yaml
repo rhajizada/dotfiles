@@ -6,17 +6,21 @@ aliases:
       build:
         cwd: ./images/almalinux9
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
@@ -29,13 +33,16 @@ aliases:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
@@ -58,7 +65,7 @@ aliases:
         PUID: "1000"
         PGID: "1000"
         TZ: Etc/UTC
-      mounts:
+      volumes:
         - type: tmpfs
           target: /config
       attach: false
@@ -67,17 +74,21 @@ aliases:
       build:
         cwd: ./images/debian12
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
@@ -88,24 +99,28 @@ aliases:
     run:
       ports:
         - "5678:5678"
-      cmd: ["-text=hello", "-listen=:5678"]
+      cmd: ["-text=Helllo from 👶", "-listen=:5678"]
       attach: false
   fedora44:
     image:
       build:
         cwd: ./images/fedora44
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
@@ -114,36 +129,56 @@ aliases:
       build:
         cwd: ./images/opensuse16
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
+  redis:
+    image:
+      pull:
+        ref: redis:latest
+    run:
+      ports:
+        - "6379:6379"
+      cmd: ["--requirepass", "${REDIS_PASSWORD}"]
+      attach: false
+      volumes:
+        - type: tmpfs
+          target: /data
   rocky9:
     image:
       build:
         cwd: ./images/rocky9
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
@@ -160,7 +195,7 @@ aliases:
         PUID: "1000"
         PGID: "1000"
         TZ: Etc/UTC
-      mounts:
+      volumes:
         - type: tmpfs
           target: /config
         - type: bind
@@ -172,17 +207,21 @@ aliases:
       build:
         cwd: ./images/ubuntu2404
         dockerfile: Dockerfile
+        policy: if_missing
         args:
           USERNAME: ${USER}
           UID: ${UID}
     run:
-      workdir: /home/${USER}
+      work_dir: /home/${USER}
       cmd: ["/bin/bash"]
       tty: true
       stdin_open: true
       attach: true
-      network: host
-      mounts:
+      network_mode: host
+      resources:
+        cpus: 0.5
+        memory: 512m
+      volumes:
         - type: bind
           source: /home
           target: /home
