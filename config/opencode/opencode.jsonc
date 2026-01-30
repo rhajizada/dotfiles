@@ -11,21 +11,6 @@
       "command": ["docker", "run", "-i", "--rm", "mcp/fetch"],
       "enabled": true,
     },
-    "kubernetes": {
-      "type": "local",
-      "command": [
-        "docker",
-        "run",
-        "-i",
-        "--rm",
-        "-v",
-        "{env:HOME}/.kube/config:/kubeconfig:ro",
-        "--env",
-        "KUBECONFIG_PATH=/kubeconfig",
-        "mcp/kubernetes",
-      ],
-      "enabled": true,
-    },
     "next-devtools-mcp": {
       "type": "local",
       "command": ["docker", "run", "-i", "--rm", "mcp/next-devtools-mcp"],
@@ -65,11 +50,11 @@
         "apiKey": "{env:LLAMERO_API_KEY}",
       },
       "models": {
-        "qwen3-coder-32k": {
-          "name": "Qwen3",
+        "glm-4.7-agent": {
+          "name": "GLM 4.7",
           "reasoning": false,
           "limit": {
-            "context": 32768,
+            "context": 8192,
             "output": 2048,
           },
         },
