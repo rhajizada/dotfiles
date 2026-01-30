@@ -92,4 +92,3 @@ fi
 if command -v task &> /dev/null; then
   eval "$(task --completion zsh)"
 fi
-

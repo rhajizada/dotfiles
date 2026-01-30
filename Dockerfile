@@ -24,4 +24,3 @@ RUN brew bundle --file=/etc/dotfiles/Brewfile
 RUN nvim --headless +"Lazy! restore" +qa
 VOLUME ["/home/${USERNAME}"]
 CMD ["/bin/zsh"]
-
