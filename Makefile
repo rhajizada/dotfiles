@@ -62,7 +62,7 @@ brew:
 config:
 	@echo "⚙️ Setting up user configuration..."
 	@if [ "$(UNAME)" = "Linux" ]; then \
-		$(MAKE) alacritty bashrc cradle gitconfig nvim tmux ulauncher zshrc; \
+		$(MAKE) bashrc cradle ghostty gitconfig nvim tmux ulauncher zshrc; \
 	elif [ "$(UNAME)" = "Darwin" ]; then \
 		$(MAKE) cradle ghostty gitconfig nvim tmux zshrc; \
 	fi
