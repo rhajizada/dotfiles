@@ -176,3 +176,4 @@ export PATH="$PATH:/var/lib/snapd/snap/bin"
 
 # NPM packages
 export PATH="$(npm config get prefix)/bin:$PATH"
+. "$HOME/.cargo/env"

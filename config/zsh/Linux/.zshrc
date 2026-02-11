@@ -67,6 +67,9 @@ alias tms='transmission-cli'
 alias ts='tmux new-session -s'
 alias vim='nvim'
 
+# Rustup setup
+[[ ! -f "$HOME/.cargo/env" ]] || source "$HOME/.cargo/env"
+
 # Shell integration / auto-completion
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
