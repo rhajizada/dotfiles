@@ -225,3 +225,15 @@ aliases:
         - type: bind
           source: /home
           target: /home
+  nvidia-smi:
+    image:
+      pull:
+        ref: ubuntu
+    run:
+      runtime: nvidia
+      gpus:
+        - count: all
+      cmd: ["nvidia-smi"]
+      tty: true
+      stdin_open: true
+      attach: true
