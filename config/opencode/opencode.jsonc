@@ -16,6 +16,15 @@
       "command": ["docker", "run", "-i", "--rm", "mcp/next-devtools-mcp"],
       "enabled": true,
     },
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@mauricio.wolff/mcp-obsidian@latest",
+        "{env:HOME}/Dev/knowledge-base",
+      ],
+    },
     "openapi": {
       "type": "local",
       "command": ["docker", "run", "-i", "--rm", "-e", "MODE", "mcp/openapi"],
