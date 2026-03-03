@@ -68,14 +68,6 @@ config:
 	fi
 	@echo "✅ Configuration complete!"
 
-.PHONY: codex
-## codex: 🧭 Setup symlink for codex configuration
-codex:
-	@echo "🧭 Setting up codex configuration..."
-	@rm -rf "$(XDG_CONFIG_HOME)/codex"
-	@ln -sf "$(CONFIG_DIR)/codex" "$(XDG_CONFIG_HOME)/codex"
-	@echo "✅ codex configured!"
-
 .PHONY: opencode
 ## opencode: 👾 Setup symlink for OpenCode configuration
 opencode:
