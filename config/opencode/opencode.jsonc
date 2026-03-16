@@ -141,5 +141,5 @@
       },
     },
   },
-  "plugin": ["opencode-handoff"],
+  "plugin": ["opencode-handoff", "@mohak34/opencode-notifier@latest"],
 }
