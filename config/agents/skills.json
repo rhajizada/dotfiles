@@ -1,0 +1,13 @@
+{
+  "find-skills": "https://github.com/vercel-labs/skills.git",
+  "frontend-design": "https://github.com/anthropics/skills.git",
+  "pdf": "https://github.com/anthropics/skills.git",
+  "mcp-builder": "https://github.com/anthropics/skills.git",
+  "skill-creator": "https://github.com/anthropics/skills.git",
+  "compose-spec": "https://git.solocuplabs.com/hajizar/agent-skills.git",
+  "compose-ticket": "https://git.solocuplabs.com/hajizar/agent-skills.git",
+  "obsidian-markdown": "https://github.com/kepano/obsidian-skills.git",
+  "obsidian-cli": "https://github.com/kepano/obsidian-skills.git",
+  "obsidian-bases": "https://github.com/kepano/obsidian-skills.git",
+  "json-canvas": "https://github.com/kepano/obsidian-skills.git"
+}

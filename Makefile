@@ -5,6 +5,7 @@ CONFIG_DIR := $(DOTFILES_DIR)/config
 UNAME := "$(shell uname)"
 XDG_CONFIG_HOME ?= $(HOME)/.config
 BACKUP_DIR := $(HOME)/.dotfiles.backup.$(shell date +%Y%m%d_%H%M%S)
+SKILLS_FILE := $(CONFIG_DIR)/agents/skills.json
 
 ifeq ($(OS),Windows_NT)
 $(error Windows is not supported)
@@ -75,6 +76,44 @@ opencode:
 	@rm -rf "$(XDG_CONFIG_HOME)/opencode"
 	@ln -sf "$(CONFIG_DIR)/opencode" "$(XDG_CONFIG_HOME)/opencode"
 	@echo "✅ OpenCode configured!"
+
+.PHONY: skills
+## skills: 🧠 Install missing global agent skills from manifest
+skills:
+	@echo "🧠 Installing agent skills..."
+	@command -v skills >/dev/null 2>&1 || { \
+		echo "❌ 'skills' is not installed. Install it first and rerun 'make skills'."; \
+		exit 1; \
+	}
+	@command -v jq >/dev/null 2>&1 || { \
+		echo "❌ 'jq' is not installed. Install it first and rerun 'make skills'."; \
+		exit 1; \
+	}
+	@[ -f "$(SKILLS_FILE)" ] || { \
+		echo "❌ Skills manifest not found: $(SKILLS_FILE)"; \
+		exit 1; \
+	}
+	@mkdir -p "$(HOME)/.agents"
+	@lockfile=""; \
+	if [ -f "$(HOME)/.agents/.skill-lock.json" ]; then \
+		lockfile="$(HOME)/.agents/.skill-lock.json"; \
+	elif [ -f "$(HOME)/.agents/skill-lock.json" ]; then \
+		lockfile="$(HOME)/.agents/skill-lock.json"; \
+	fi; \
+	tmpfile=$$(mktemp); \
+	jq -r 'to_entries[] | @base64' "$(SKILLS_FILE)" > "$$tmpfile"; \
+	while IFS= read -r entry; do \
+		name=$$(printf '%s' "$$entry" | base64 --decode | jq -r '.key'); \
+		source=$$(printf '%s' "$$entry" | base64 --decode | jq -r '.value'); \
+		if [ -n "$$lockfile" ] && jq -e --arg name "$$name" --arg source "$$source" '.skills[$$name] and .skills[$$name].sourceUrl == $$source' "$$lockfile" >/dev/null 2>&1; then \
+			echo "⏭️  $$name already installed; skipping."; \
+			continue; \
+		fi; \
+		echo "📦 Installing $$name..."; \
+		skills add "$$source" --skill "$$name" -g -y </dev/null; \
+	done < "$$tmpfile"; \
+	rm -f "$$tmpfile"
+	@echo "✅ Agent skills installed!"
 
 .PHONY: fonts
 ## fonts: 🔤 Setup nerd fonts

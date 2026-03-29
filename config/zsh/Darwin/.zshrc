@@ -92,3 +92,7 @@ fi
 if command -v task &> /dev/null; then
   eval "$(task --completion zsh)"
 fi
+
+if command -v opencode &> /dev/null; then
+  eval "$(opencode completion zsh)"
+fi
