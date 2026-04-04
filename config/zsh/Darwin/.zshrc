@@ -44,6 +44,7 @@ export LANG=en_US.UTF-8
 export LESSOPEN="|pygmentize -g %s"
 export TERM="xterm-256color"
 
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.nodenv/shims:$PATH"
@@ -71,6 +72,9 @@ alias tl='tmux list-sessions'
 alias ts='tmux new-session -s'
 alias venv='source .venv/bin/activate'
 alias vim='nvim'
+
+# Rustup setup
+[[ ! -f "$HOME/.cargo/env" ]] || source "$HOME/.cargo/env"
 
 # Shell integration / auto-completion
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
