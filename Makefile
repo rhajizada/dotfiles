@@ -73,8 +73,10 @@ config:
 ## opencode: 👾 Setup symlink for OpenCode configuration
 opencode:
 	@echo "👾 Setting up OpenCode configuration..."
-	@rm -rf "$(XDG_CONFIG_HOME)/opencode"
-	@ln -sf "$(CONFIG_DIR)/opencode" "$(XDG_CONFIG_HOME)/opencode"
+	@if [ -L "$(XDG_CONFIG_HOME)/opencode" ]; then rm "$(XDG_CONFIG_HOME)/opencode"; fi
+	@mkdir -p "$(XDG_CONFIG_HOME)/opencode"
+	@rm -f "$(XDG_CONFIG_HOME)/opencode/opencode.jsonc"
+	@ln -sf "$(CONFIG_DIR)/opencode/opencode.jsonc" "$(XDG_CONFIG_HOME)/opencode/opencode.jsonc"
 	@echo "✅ OpenCode configured!"
 
 .PHONY: skills
