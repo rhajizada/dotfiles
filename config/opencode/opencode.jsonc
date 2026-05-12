@@ -40,25 +40,6 @@
         "MODE": "Stdio",
       },
     },
-    "kaneo": {
-      "type": "local",
-      "command": [
-        "docker",
-        "run",
-        "--rm",
-        "-i",
-        "-e",
-        "KANEO_API_URL",
-        "-e",
-        "KANEO_API_TOKEN",
-        "kaneo-mcp-server:latest",
-      ],
-      "enabled": true,
-      "environment": {
-        "KANEO_API_URL": "{env:KANEO_API_URL}",
-        "KANEO_API_TOKEN": "{env:KANEO_API_TOKEN}",
-      },
-    },
   },
   "provider": {
     "llamero": {
